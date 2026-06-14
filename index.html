@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>internal // zax</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
@@ -11,6 +11,17 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      /* Hilangkan tap highlight biru di semua elemen (HP) */
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Elemen interaktif juga dipastikan tidak ada highlight biru */
+    button,
+    a,
+    .link-card,
+    .copy-btn {
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
     }
 
     :root {
@@ -137,6 +148,12 @@
       color: var(--accent);
     }
 
+    /* Efek sentuh untuk HP (tanpa highlight biru) */
+    .link-card:active {
+      transform: scale(0.99);
+      transition: transform 0.05s;
+    }
+
     .link-left {
       display: flex;
       flex-direction: column;
@@ -201,12 +218,18 @@
       transform: scale(0.97);
     }
 
+    /* Efek sentuh untuk tombol copy di HP (tanpa highlight biru) */
+    .copy-btn:active {
+      transform: scale(0.95);
+      transition: transform 0.05s;
+    }
+
     .copy-btn.success {
       color: var(--accent);
       border-color: var(--accent);
     }
 
-    /* Tooltip sederhana pakai title, tapi style dikit via JS optional */
+    /* Responsif untuk HP */
     @media (max-width: 480px) {
       .heading {
         font-size: 1.6rem;
@@ -214,6 +237,12 @@
 
       .link-card {
         padding: 1rem;
+      }
+      
+      /* Sedikit tambahan sentuhan agar lebih responsif */
+      .link-card:active .icon-arrow {
+        transform: translate(2px, -2px);
+        color: var(--accent);
       }
     }
   </style>
@@ -254,6 +283,7 @@
 
 <script>
   const btn = document.getElementById('copyBtn');
+  
   btn.addEventListener('click', () => {
     navigator.clipboard.writeText(location.href).then(() => {
       btn.textContent = 'copied ✓';
