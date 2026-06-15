@@ -3,66 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>internal // zax</title>
+  <title>zax internal — buat kamu 🤍</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      /* Hilangkan tap highlight biru di semua elemen (HP) */
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Elemen interaktif juga dipastikan tidak ada highlight biru */
-    button,
-    a,
-    .link-card,
-    .copy-btn {
+    button, a, .link-card, .copy-btn {
       -webkit-tap-highlight-color: transparent;
       outline: none;
     }
 
+    /* ========== TEMA TERANG CERIA ========== */
     :root {
-      --bg: #080808;
-      --surface: #0f0f0f;
-      --border: #1a1a1a;
-      --border-hover: #2e2e2e;
-      --text-primary: #e8e8e8;
-      --text-muted: #4a4a4a;
-      --text-dim: #282828;
-      --accent: #c8ff00;
-      --accent-dim: rgba(200, 255, 0, 0.06);
+      --bg: #fff9f5;
+      --surface: #ffffff;
+      --surface-soft: #fff0e6;
+      --border: #ffe0d4;
+      --border-hover: #ffc4a8;
+      --text-primary: #5a3e2b;
+      --text-secondary: #8b6b4f;
+      --text-muted: #c4a88a;
+      --accent-pink: #ff8ba7;
+      --accent-orange: #ffb347;
+      --accent-yellow: #ffde6e;
+      --accent-mint: #a8e6cf;
+      --shadow-sm: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+      --shadow-hover: 0 12px 28px rgba(255, 139, 167, 0.12), 0 4px 12px rgba(0,0,0,0.08);
     }
 
-           *{
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-        img{
-            -webkit-user-drag: none;
-            user-drag: none;
-        }
+    img {
+      -webkit-user-drag: none;
+      user-drag: none;
+    }
 
     body {
-      background: var(--bg);
-      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(135deg, #fff5ee 0%, #ffe8f0 50%, #fff0e0 100%);
+      font-family: 'Poppins', 'Quicksand', sans-serif;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 2rem 1.25rem;
+      position: relative;
     }
 
-    /* Animasi fade-in halus */
+    /* floating bubur lucu (background decoration) */
+    body::before {
+      content: "🌸✨🍰";
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      font-size: 40px;
+      opacity: 0.15;
+      pointer-events: none;
+      rotate: -15deg;
+    }
+    body::after {
+      content: "💖🎀🍭";
+      position: fixed;
+      top: 20px;
+      right: 15px;
+      font-size: 55px;
+      opacity: 0.12;
+      pointer-events: none;
+      rotate: 8deg;
+    }
+
     @keyframes fadeUp {
       0% {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(20px);
       }
       100% {
         opacity: 1;
@@ -70,85 +93,120 @@
       }
     }
 
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
     .wrap {
       width: 100%;
-      max-width: 560px;
-      animation: fadeUp 0.25s ease-out;
+      max-width: 580px;
+      animation: fadeUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      position: relative;
+      z-index: 2;
     }
 
     .eyebrow {
-      font-family: 'Space Mono', monospace;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
       font-size: 0.7rem;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      margin-bottom: 2rem;
+      color: var(--accent-pink);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+      width: fit-content;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
     }
 
     .eyebrow::before {
-      content: '';
+      content: '🌸';
       display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      flex-shrink: 0;
+      font-size: 0.9rem;
+      background: none;
+      width: auto;
+      height: auto;
+      border-radius: 0;
     }
 
     .heading {
-      font-size: 2rem;
-      font-weight: 300;
-      color: var(--text-primary);
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 0.4rem;
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff8ba7, #ffb347, #ffde6e);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.3rem;
+      text-shadow: 0 2px 5px rgba(255,139,167,0.1);
     }
 
     .heading span {
-      color: var(--text-muted);
+      background: linear-gradient(135deg, #c4a88a, #e7c4a3);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      font-weight: 500;
     }
 
     .sub {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-bottom: 3rem;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      background: white;
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      backdrop-filter: blur(2px);
+      box-shadow: var(--shadow-sm);
     }
 
     .links {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 1rem;
     }
 
     .link-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.1rem 1.25rem;
+      padding: 1.2rem 1.5rem;
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 24px;
       text-decoration: none;
-      transition: border-color 0.18s, background 0.18s;
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
       position: relative;
       overflow: hidden;
-      cursor: pointer;
     }
 
     .link-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: var(--accent-dim);
+      background: linear-gradient(120deg, rgba(255,139,167,0.05), rgba(255,222,110,0.08));
       opacity: 0;
-      transition: opacity 0.18s;
+      transition: opacity 0.3s;
     }
 
     .link-card:hover {
-      border-color: var(--border-hover);
+      border-color: var(--accent-pink);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
     }
 
     .link-card:hover::before {
@@ -156,105 +214,150 @@
     }
 
     .link-card:hover .icon-arrow {
-      transform: translate(2px, -2px);
-      color: var(--accent);
+      transform: translate(4px, -3px);
+      color: var(--accent-pink);
     }
 
-    /* Efek sentuh untuk HP (tanpa highlight biru) */
     .link-card:active {
-      transform: scale(0.99);
-      transition: transform 0.05s;
+      transform: scale(0.98);
+      transition: transform 0.08s;
     }
 
     .link-left {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       position: relative;
+      z-index: 2;
     }
 
     .link-name {
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 1.1rem;
+      font-weight: 600;
       color: var(--text-primary);
-      letter-spacing: -0.01em;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .link-name::before {
+      content: "✧";
+      color: var(--accent-orange);
+      font-size: 1.1rem;
     }
 
     .link-meta {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.7rem;
       color: var(--text-muted);
+      letter-spacing: 0.3px;
     }
 
     .icon-arrow {
-      font-size: 1rem;
-      color: var(--text-dim);
-      transition: transform 0.18s, color 0.18s;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--accent-orange);
+      transition: all 0.2s ease;
       flex-shrink: 0;
-      position: relative;
+      background: rgba(255, 187, 71, 0.15);
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
     }
 
     .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 2.5rem 0 1.25rem;
+      height: 2px;
+      background: linear-gradient(90deg, var(--border), var(--accent-pink), var(--accent-yellow), var(--border));
+      margin: 2rem 0 1.2rem;
+      border-radius: 4px;
+      opacity: 0.7;
     }
 
     .footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .footer-tag {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--text-dim);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      background: rgba(255,255,240,0.8);
+      padding: 0.3rem 0.9rem;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .footer-tag::before {
+      content: "💌";
+      font-size: 0.8rem;
     }
 
     .copy-btn {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 0.35rem 0.75rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--accent-pink);
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
     }
 
     .copy-btn:hover {
-      color: var(--accent);
-      border-color: var(--border-hover);
-      transform: scale(0.97);
+      background: var(--accent-pink);
+      color: white;
+      border-color: var(--accent-pink);
+      transform: translateY(-2px);
     }
 
-    /* Efek sentuh untuk tombol copy di HP (tanpa highlight biru) */
     .copy-btn:active {
-      transform: scale(0.95);
-      transition: transform 0.05s;
+      transform: scale(0.96);
     }
 
     .copy-btn.success {
-      color: var(--accent);
-      border-color: var(--accent);
+      background: var(--accent-mint);
+      color: #5a7c6b;
+      border-color: var(--accent-mint);
     }
 
-    /* Responsif untuk HP */
+    /* floating animasi buat kesan gemes */
+    @keyframes bounceSoft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    /* tambahan efek kecil buat footer */
+    .footer-tag, .copy-btn {
+      transition: all 0.2s ease;
+    }
+
     @media (max-width: 480px) {
       .heading {
-        font-size: 1.6rem;
+        font-size: 2rem;
       }
-
       .link-card {
-        padding: 1rem;
+        padding: 1rem 1.2rem;
       }
-      
-      /* Sedikit tambahan sentuhan agar lebih responsif */
-      .link-card:active .icon-arrow {
-        transform: translate(2px, -2px);
-        color: var(--accent);
+      .link-name {
+        font-size: 0.95rem;
+      }
+      .icon-arrow {
+        width: 28px;
+        height: 28px;
+        font-size: 1.1rem;
       }
     }
   </style>
@@ -262,24 +365,24 @@
 <body>
 
 <div class="wrap">
-  <div class="eyebrow">restricted access</div>
+  <div class="eyebrow">✨ buat kamu yang spesial ✨</div>
 
   <h1 class="heading">zax<span>/internal</span></h1>
-  <p class="sub">2 portals</p>
+  <p class="sub">🌸 2 portal rahasia + vibes lucu 🌸</p>
 
   <div class="links">
-    <a href="https://zaxhub.pages.dev" target="_blank" rel="noopener" class="link-card" title="buka zaxhub — rizz & ucapan">
+    <a href="https://zaxhub.pages.dev" target="_blank" rel="noopener" class="link-card" title="zaxhub — tempatnya gemes & rizz">
       <div class="link-left">
         <span class="link-name">zaxhub</span>
-        <span class="link-meta">pages.dev · volume1</span>
+        <span class="link-meta">🍰 pages.dev · volume 1 · serba-serbi manis</span>
       </div>
       <span class="icon-arrow">↗</span>
     </a>
 
-    <a href="https://secretbyzax.pages.dev" target="_blank" rel="noopener" class="link-card" title="buka secretbyzax — login: zaxganteng">
+    <a href="https://secretbyzax.pages.dev" target="_blank" rel="noopener" class="link-card" title="secretbyzax — login: zaxganteng">
       <div class="link-left">
         <span class="link-name">secretbyzax</span>
-        <span class="link-meta">pages.dev · volume2</span>
+        <span class="link-meta">🎀 pages.dev · volume 2 · khusus yang berani</span>
       </div>
       <span class="icon-arrow">↗</span>
     </a>
@@ -288,32 +391,130 @@
   <div class="divider"></div>
 
   <div class="footer">
-    <span class="footer-tag">shh · untuk dirimu saja</span>
-    <button class="copy-btn" id="copyBtn">copy url</button>
+    <span class="footer-tag">jangan dikasi sembarang orang ya 🤫</span>
+    <button class="copy-btn" id="copyBtn">📋 copy link halaman ini</button>
   </div>
 </div>
 
 <script>
-  const btn = document.getElementById('copyBtn');
-  
-  btn.addEventListener('click', () => {
-    navigator.clipboard.writeText(location.href).then(() => {
-      btn.textContent = 'copied ✓';
-      btn.classList.add('success');
-      setTimeout(() => {
-        btn.textContent = 'copy url';
-        btn.classList.remove('success');
-      }, 1800);
-    }).catch(() => {
-      btn.textContent = 'copy manually';
-      setTimeout(() => { btn.textContent = 'copy url'; }, 1200);
+  (function() {
+    // ====================== PROTECTION (tetap aman) ======================
+    // 1. disable drag semua gambar (meskipun gaada gambar, tapi aman)
+    document.querySelectorAll('img, a, div').forEach(el => {
+      el.setAttribute('draggable', 'false');
     });
-  });
-  
-   document.addEventListener("contextmenu", e => e.preventDefault());
-   document.addEventListener("dragstart", e => e.preventDefault());
-  
+    
+    document.addEventListener('dragstart', (e) => {
+      e.preventDefault();
+      return false;
+    });
+    
+    // 2. disable right-click (kecuali di input/textarea biar ga ganggu)
+    document.addEventListener('contextmenu', (e) => {
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+      }
+      return false;
+    });
+    
+    // 3. proteksi select & copy (tapi friendly)
+    document.addEventListener('copy', (e) => {
+      // biar user masih bisa copy link dari tombol, tapi ga seleksi teks bebas
+      if (!e.target.closest('.copy-btn')) {
+        e.preventDefault();
+      }
+    });
+    
+    document.addEventListener('selectstart', (e) => {
+      if (!e.target.closest('.copy-btn') && e.target.tagName !== 'INPUT') {
+        e.preventDefault();
+      }
+    });
+    
+    // ====================== TOMBOL COPY (interaktif gemes) ======================
+    const btn = document.getElementById('copyBtn');
+    if (btn) {
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          btn.textContent = '✅ copied! ⋆˙⊹';
+          btn.classList.add('success');
+          setTimeout(() => {
+            btn.textContent = '📋 copy link halaman ini';
+            btn.classList.remove('success');
+          }, 1800);
+        } catch (err) {
+          btn.textContent = '❌ gagal, copy manual ya';
+          setTimeout(() => {
+            btn.textContent = '📋 copy link halaman ini';
+          }, 1200);
+        }
+      });
+    }
+    
+    // ====================== BIKIN WEBSITE LEBIH HIDUP (interaktif kecil) ======================
+    // Efek "heartbeat" pas hover link card
+    const cards = document.querySelectorAll('.link-card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', (e) => {
+        const arrow = card.querySelector('.icon-arrow');
+        if (arrow) {
+          arrow.style.animation = 'heartbeat 0.4s ease';
+          setTimeout(() => { arrow.style.animation = ''; }, 400);
+        }
+      });
+      
+      // tambahin efek sentuhan buat hp
+      card.addEventListener('touchstart', () => {
+        const arrow = card.querySelector('.icon-arrow');
+        if (arrow) arrow.style.transform = 'translate(4px, -3px)';
+      });
+      card.addEventListener('touchend', () => {
+        const arrow = card.querySelector('.icon-arrow');
+        if (arrow) arrow.style.transform = '';
+      });
+    });
+    
+    // Pesan sambutan kecil (biar berasa manusia banget, gak AI)
+    const hour = new Date().getHours();
+    let greeting = '';
+    if (hour < 11) greeting = 'pagi 🌞';
+    else if (hour < 15) greeting = 'siang ☀️';
+    else if (hour < 19) greeting = 'sore 🌆';
+    else greeting = 'malam 🌙';
+    
+    // tampilin salam di console? nggak, mending di tooltip subtle
+    const eyebrow = document.querySelector('.eyebrow');
+    if (eyebrow && !eyebrow.getAttribute('data-greeted')) {
+      const oldText = eyebrow.innerText;
+      eyebrow.setAttribute('data-greeted', 'true');
+      // efek subtle, biar gak berubah total tapi ada sentuhan "manusia"
+      setTimeout(() => {
+        eyebrow.style.transition = 'opacity 0.2s';
+        eyebrow.style.opacity = '0.7';
+        setTimeout(() => { eyebrow.style.opacity = '1'; }, 300);
+      }, 500);
+    }
+    
+    // tambahin sentuhan "random floating emoji" dikit (optional)
+    const footerTag = document.querySelector('.footer-tag');
+    if (footerTag) {
+      const emojis = ['🌸', '🍬', '🎀', '💖', '🍭', '✨'];
+      setInterval(() => {
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        const originalHTML = footerTag.innerHTML;
+        if (!footerTag.classList.contains('animating')) {
+          footerTag.classList.add('animating');
+          footerTag.style.transition = 'all 0.15s';
+          footerTag.style.transform = 'scale(1.02)';
+          setTimeout(() => {
+            footerTag.style.transform = '';
+            footerTag.classList.remove('animating');
+          }, 200);
+        }
+      }, 4000);
+    }
+  })();
 </script>
-
 </body>
 </html>
