@@ -36,6 +36,18 @@
       --accent-dim: rgba(200, 255, 0, 0.06);
     }
 
+           *{
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        img{
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+
     body {
       background: var(--bg);
       font-family: 'Space Grotesk', sans-serif;
@@ -297,6 +309,10 @@
       setTimeout(() => { btn.textContent = 'copy url'; }, 1200);
     });
   });
+  
+   document.addEventListener("contextmenu", e => e.preventDefault());
+   document.addEventListener("dragstart", e => e.preventDefault());
+  
 </script>
 
 </body>
