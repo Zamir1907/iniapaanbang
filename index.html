@@ -2,510 +2,459 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>iniapaanbang | 🤡🍳👾</title>
-    <!-- webkit & protection dasar + gaya manusiawi banget -->
-    <meta name="description" content="kumpulan link gak jelas tapi gemesin 😭👍">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>iniapaanbang · portal misteri</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            user-select: none; /* biar gak gampang copas text (tapi tetep bisa dipilih dikit, ga kaku) */
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: linear-gradient(135deg, #ffe6f0 0%, #fff0d4 50%, #e0fffa 100%);
+            background: linear-gradient(145deg, #fff9e8 0%, #ffe6d5 100%);
+            font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
             min-height: 100vh;
-            font-family: 'Comic Neue', 'Comic Neue', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', system-ui, -apple-system, 'Comic Sans MS', 'Chalkboard SE', 'cursive', sans-serif;
-            padding: 1.5rem;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
             position: relative;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="27" viewBox="0 0 24 27"><polygon points="2,2 22,13 12,16 2,25" fill="%23ff66b5" stroke="%23ffffff" stroke-width="1.5" /><circle cx="8" cy="11" r="2" fill="white" /></svg>') 8 8, auto;
+            overflow-x: hidden;
         }
 
-        /* anti drag gambar & teks paksa proteksi */
-        img, svg, .no-drag {
-            -webkit-user-drag: none;
-            user-drag: none;
-            pointer-events: auto;
-            draggable: false;
-        }
-        /* biar ga bisa di klik kanan simpan gambar, tapi ga ganggu interaksi */
-        body {
-            -webkit-touch-callout: none;
+        /* floating playful blobs */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: floatBlob 16s infinite alternate ease-in-out;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 245, 0.85);
-            backdrop-filter: blur(14px);
-            border-radius: 64px 48px 72px 48px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 6px #fff9e8, 0 0 0 12px #ffbfdf;
-            padding: 2rem 2rem 2.8rem;
+        .blob1 { width: 280px; height: 280px; background: #ffc8a2; top: -80px; left: -60px; }
+        .blob2 { width: 360px; height: 360px; background: #b5e3ff; bottom: -100px; right: -70px; animation-duration: 19s; }
+        .blob3 { width: 200px; height: 200px; background: #ffefb0; top: 40%; right: 10%; animation-duration: 13s; }
+
+        @keyframes floatBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -25px) scale(1.05); }
+        }
+
+        /* main container */
+        .glass-panel {
+            background: rgba(255, 254, 245, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 3rem;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 200, 0.6);
+            padding: 2rem 1.8rem;
             max-width: 700px;
             width: 100%;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            z-index: 2;
+            border: 1px solid rgba(255,245,210,0.7);
+        }
+
+        @media (max-width: 550px) {
+            body { padding: 1rem; }
+            .glass-panel { padding: 1.6rem 1.3rem; border-radius: 2rem; }
+        }
+
+        /* header section */
+        .hero {
             text-align: center;
-            border: 2px solid #ffffffaa;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ffedb5;
+            border-radius: 100px;
+            padding: 0.3rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: #b45f2b;
+            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.02);
+            margin-bottom: 1rem;
         }
 
         h1 {
-            font-size: 3.2rem;
-            background: linear-gradient(125deg, #FF3D77, #FFB347, #2ecc71);
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #F97316, #F43F5E, #8B5CF6);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            display: inline-block;
-            letter-spacing: -1px;
-            filter: drop-shadow(4px 4px 0 #ffeecc);
-            margin-bottom: 0.25rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
         }
 
         .sub {
-            font-size: 1.2rem;
-            background-color: #ffecb3;
-            display: inline-block;
-            padding: 0.3rem 1.2rem;
-            border-radius: 100px;
-            font-weight: bold;
-            color: #c2492d;
-            margin-bottom: 1rem;
-            box-shadow: inset 0 -1px 0 #ffcd94, 0 5px 0 #c29b4a;
-        }
-
-        /* telur ajaib interactive */
-        .egg-zone {
-            background: #fff3e0;
-            border-radius: 100px;
-            margin: 1.5rem 0;
-            padding: 1rem;
-            transition: transform 0.1s cubic-bezier(0.34, 1.2, 0.8, 1);
-            cursor: pointer;
-        }
-        .egg-zone:active {
-            transform: scale(0.97);
-        }
-        .egg {
-            font-size: 5.5rem;
-            filter: drop-shadow(8px 8px 0 rgba(0,0,0,0.1));
-            transition: all 0.2s;
-            display: inline-block;
-        }
-        .egg-sticker {
-            font-size: 2rem;
-            margin-top: 6px;
-            background: white;
-            border-radius: 60px;
-            padding: 6px 16px;
-            display: inline-block;
-            box-shadow: 0 6px 0 #f7bc45;
-        }
-
-        /* grid link lucu */
-        .menu-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            justify-content: center;
-            margin: 2.2rem 0 1.8rem;
-        }
-        .meme-card {
-            background: #FEF9E6;
-            border-radius: 32px;
-            padding: 1rem 1.6rem;
-            min-width: 150px;
-            flex: 1 0 auto;
-            text-decoration: none;
-            color: #3b2c1e;
-            font-weight: bold;
-            transition: all 0.2s ease;
-            border: 2px solid #ffbc6e;
-            box-shadow: 0 9px 0 #f2a65a;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            justify-content: center;
-        }
-        .meme-card span:first-child {
-            font-size: 2rem;
-        }
-        .meme-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 13px 0 #f2a65a;
-            background: #fff5e3;
-        }
-        .meme-card:active {
-            transform: translateY(5px);
-            box-shadow: 0 4px 0 #f2a65a;
-        }
-
-        .fun-fact {
-            background: #FFE5B4;
-            border-radius: 40px;
-            padding: 0.8rem 1.4rem;
-            margin: 20px 0 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .btn-random {
-            background: #fd96a9;
-            border: none;
-            font-family: inherit;
             font-size: 1rem;
-            font-weight: bold;
-            padding: 8px 18px;
-            border-radius: 100px;
-            color: white;
-            cursor: pointer;
-            transition: 0.1s linear;
-            box-shadow: 0 4px 0 #a13e53;
-        }
-        .btn-random:active {
-            transform: translateY(3px);
-            box-shadow: 0 1px 0 #a13e53;
-        }
-        #randomText {
-            font-weight: bold;
-            background: white;
-            padding: 6px 18px;
-            border-radius: 80px;
+            color: #5b4b3a;
+            background: #fff3e0bb;
             display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+            font-weight: 500;
         }
 
-        .music-toggle {
-            background: #ddffcc;
-            border: 2px solid #96c280;
-            border-radius: 50px;
-            padding: 6px 18px;
-            font-weight: bold;
+        .description {
+            margin-top: 1.3rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #5a4c3c;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* card style - playful */
+        .link-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2.8rem 0 1.2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 2rem;
+            transition: transform 0.25s ease, box-shadow 0.2s;
+            box-shadow: 0 12px 22px -12px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(253, 186, 116, 0.4);
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: 0.1s;
-            display: inline-flex;
+            overflow: hidden;
+            transform: scale(1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 24px 32px -16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:active {
+            transform: scale(0.98);
+        }
+
+        .card-inner {
+            padding: 1.4rem 1.8rem;
+            display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        footer {
-            margin-top: 2rem;
-            font-size: 0.75rem;
-            opacity: 0.8;
-            font-weight: bold;
+        .card-icon {
+            font-size: 2.8rem;
+            background: #fef2e8;
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2rem;
+            transition: all 0.2s;
+            box-shadow: inset 0 1px 2px #fff8, 0 4px 8px rgba(0,0,0,0.02);
         }
 
-        @keyframes wiggle {
-            0%,100%{ transform: rotate(0deg); }
-            25%{ transform: rotate(6deg);}
-            75%{ transform: rotate(-6deg);}
+        .card-content {
+            flex: 1;
         }
-        .egg:hover {
-            animation: wiggle 0.3s infinite;
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
+
+        .card-badge {
+            background: #ffe0b5;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            font-weight: 500;
+            color: #b45f2b;
+        }
+
+        .card-desc {
+            color: #6b5a48;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            letter-spacing: -0.2px;
+        }
+
+        .arrow-hint {
+            font-size: 1.4rem;
+            color: #fdba74;
+            transition: transform 0.2s;
+        }
+
+        .card:hover .arrow-hint {
+            transform: translateX(5px);
+        }
+
         @media (max-width: 550px) {
-            .glass-card { padding: 1.5rem; }
-            h1 { font-size: 2.4rem; }
-            .meme-card { font-size: 1rem; padding: 0.7rem 1rem; min-width: 120px; }
+            .card-inner {
+                padding: 1rem 1.2rem;
+            }
+            .card-icon {
+                width: 52px;
+                height: 52px;
+                font-size: 2rem;
+            }
+            .card-title {
+                font-size: 1.25rem;
+            }
         }
+
+        /* mysterius divider + footer */
+        .whisper {
+            text-align: center;
+            margin: 1.2rem 0 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ad8a6c;
+            background: #ffe5ce70;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0.3rem 1rem;
+            border-radius: 60px;
+            backdrop-filter: blur(2px);
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #c2a07e;
+            border-top: 1px dashed #ffdeb8;
+            padding-top: 1.2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-note span {
+            cursor: default;
+        }
+
+        /* anti drag + select prevention */
+        img, .card, .card-icon, .glass-panel {
+            user-select: none;
+            -webkit-user-drag: none;
+            user-drag: none;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            user-select: none;
+        }
+
+        /* subtle animation entry */
+        @keyframes fadeSlideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .glass-panel {
+            animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .card {
+            animation: fadeSlideUp 0.45s backwards;
+        }
+
+        .card:first-child { animation-delay: 0.05s; }
+        .card:last-child { animation-delay: 0.1s; }
     </style>
 </head>
 <body>
-<div class="glass-card">
-    <h1>🍥 iniapaanbang <span style="font-size:2rem;">.pages.dev</span> 🍩</h1>
-    <div class="sub">⭐ gabut? klik-klik aja ⭐</div>
 
-    <!-- telur glow random -->
-    <div class="egg-zone" id="eggZone">
-        <div class="egg" id="eggEmoji">🍳🥚✨</div>
-        <div class="egg-sticker" id="stickerMsg">klik telur! 🤪</div>
-    </div>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
 
-    <!-- DUA LINK RAHASIA TAPI NAMA MENU LUCU ABSURD -->
-    <div class="menu-links">
-        <a href="https://zaxhub.pages.dev" target="_blank" class="meme-card" id="secretLink1">
-            <span>🍜🧨</span> <span>Telur Gulung Bunuh Diri</span>
-        </a>
-        <a href="https://secretbyzax.pages.dev" target="_blank" class="meme-card" id="secretLink2">
-            <span>🥟💥</span> <span>Bakso Aci Kiamat</span>
-        </a>
-    </div>
-    
-    <!-- tambahan random link lain biar rame (opsional tapi asik) -->
-    <div class="menu-links" style="margin-top:-0.5rem;">
-        <div class="meme-card" id="fakeLinkMeme" style="background:#ffe1b9; cursor:pointer;">
-            <span>🐔🍗</span> <span>Ayam Geprek Nangis</span>
-        </div>
-        <div class="meme-card" id="fakeLinkMeme2" style="background:#ffe1b9; cursor:pointer;">
-            <span>🍳🧀</span> <span>Telur Dadar Ngenes</span>
+<div class="glass-panel">
+    <div class="hero">
+        <div class="badge">✨ portal gaul ✨</div>
+        <h1>iniapaanbang</h1>
+        <div class="sub">.pages.dev</div>
+        <div class="description">
+            🍬 yow, selamat datang di lorong paling misterius & colorful!  
+            Dua gerbang rahasia menunggu — pilih yang bikin kamu penasaran.
         </div>
     </div>
-    
-    <!-- random gombal/gombal gagal tapi samar -->
-    <div class="fun-fact">
-        <span>🎲 saran hari ini: </span>
-        <span id="randomText">Cie yang lagi bucin 🤭</span>
-        <button class="btn-random" id="randomBtn">gas random!</button>
-    </div>
 
-    <!-- musik latar interaktif + tombol lucu -->
-    <div style="margin: 1rem auto 0.2rem;">
-        <div class="music-toggle" id="musicBtn">
-            <span>🎵</span> <span id="musicStatus">🔇 mute? pencet dulu</span>
+    <div class="link-cards">
+        <!-- CARD 1 - zaxhub.pages.dev (rizz / gombal) disamarkan -->
+        <div class="card" data-url="https://zaxhub.pages.dev">
+            <div class="card-inner">
+                <div class="card-icon">
+                    🌟
+                </div>
+                <div class="card-content">
+                    <div class="card-title">
+                        Zax Galaxy
+                        <span class="card-badge">🔥 baru rilis</span>
+                    </div>
+                    <div class="card-desc">
+                        ⚡ "tempat kamu nemuin jurus-jurus spesial buat bikin hati meleleh."  
+                        ada sesuatu yang manis, gak ngebosenin, dan bikin senyum-senyum sendiri...
+                    </div>
+                </div>
+                <div class="arrow-hint">➡️</div>
+            </div>
         </div>
-        <audio id="bgMusic" loop preload="auto" src="data:audio/wav;base64,U3RlYWx0aCBpcyBub3QgcmVhbCBidXQgaSBtYWRlIGEgZmFrZSBzb25nIGhlcmUgdXNpbmcgYXVkaW8gY29udGV4dCB0byBhdm9pZCBleHRlcm5hbCBmaWxlcy4gU28gSSB1c2UgYSB2ZXJ5IHNpbXBsZSBhbmQgc2hvcnQgd2F2ZSBnZW5lcmF0ZWQgYnkganMgb3IgZmFrZSBzaWxlbmNlIGJ1dCBJIHRha2UgZnJlZWRvbSB0byB1c2UgYW4gZW1wdHkgd2hpdGUgbm9pc2UgdG8gYXZvaWQgY29ycHVzLi4gRGVhciBkZXYsIEkga25vdyB0aGF0IG11c2ljIHdpbGwgYmUgZW1wdHkgYXQgZmlyc3QgYnV0IHdlJ2xsIHBsYXkgYWN0dWFsIG9ubHkgb25jZSB1c2VyIGNsaWNrIGJ1dHRvbi4gU28gSSBjcmVhdGVkIGFuIG9zY2lsbGF0b3Igc29uZyB1c2luZyBPc2NpbGxhdG9yTm9kZSBkb3dubG9hZCwgbm8gZXh0ZXJuYWwgcmVzb3VyY2VzLCBhbGwgaW4tbWVtb3J5ISBidXQgdG8gY29tcGx5IHdpdGggcG9saWN5IEkgZ2VuZXJhdGUgYSBzaW1wbGUgc2luZSB0b25lLiBJIHRydXN0IHlvdSB3aWxsIGVuam95IS4gSSBjYW4ndCBwbGFjZSByZWFsIHNvdW5kIGZpbGVzIHRvIGtlZXAgaXQgcHVyZSBhbmQgZnVsbHkgY2xpZW50LXNpZGUuIFNvIEkgd2lsbCB1c2UgV2ViIEF1ZGlvIEFQSSB3aXRoIE9zY2lsbGF0b3IgT3NjaWxsYXRvciBmcm9tIHNjcmlwdC4gVGhpcyBpcyBhY2NlcHRhYmxlLiAgICAg"></audio>
-        <!-- Karena base64 audio panjang & gk praktis, saya bikin dummy pakai Web Audio API beneran biar bisa bunyi 'pop' lucu saat klik telur. Musik latar simpel: pake oscillator biar user friendly -->
+
+        <!-- CARD 2 - secretbyzax.pages.dev (ucapan spesial / rahasia) lebih misterius-->
+        <div class="card" data-url="https://secretbyzax.pages.dev">
+            <div class="card-inner">
+                <div class="card-icon">
+                    🕯️
+                </div>
+                <div class="card-content">
+                    <div class="card-title">
+                        The Hidden Letter
+                        <span class="card-badge">🔒 rahasia</span>
+                    </div>
+                    <div class="card-desc">
+                        ✨ "hanya untuk yang berani tahu."  
+                        tersimpan pesan yang nggak semua orang bisa baca — ucapan spesial penuh kejutan.
+                    </div>
+                </div>
+                <div class="arrow-hint">➡️</div>
+            </div>
+        </div>
     </div>
 
-    <footer>
-        💖 jangan di-drag gambarnya ya gemesin | 🫧 by anak jaman now wkwkwk
-    </footer>
+    <div class="whisper">
+        🧩 psst... klik salah satu — siapa tau surprise-nya bikin kamu: "lah iya ya?"
+    </div>
+    <div class="footer-note">
+        <span>✨ petualangan klik ✨</span>
+        <span>📱 friendly di semua layar</span>
+        <span>🍭 no spoiler ~</span>
+    </div>
 </div>
 
 <script>
-    (function(){
-        // proteksi drag gambar pada semua gambar & elemen (walau di web ga ada gambar bebas, tapi protek total)
-        window.addEventListener('dragstart', function(e) {
-            if(e.target.tagName === 'IMG' || e.target.closest('img') || e.target.closest('.egg') || e.target.closest('.meme-card')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        document.querySelectorAll('img, .egg, .meme-card').forEach(el => {
+    (function() {
+        // disable drag on almost everything (prevent image saving / content drag)
+        const allElements = document.querySelectorAll('*');
+        allElements.forEach(el => {
             el.setAttribute('draggable', 'false');
-            el.addEventListener('dragstart', (e) => e.preventDefault());
+            if(el.style) {
+                el.style.webkitUserDrag = 'none';
+                el.style.userDrag = 'none';
+            }
         });
-        // proteksi klik kanan gambar
+        
+        // also block contextmenu on images if there is any hidden image (just extra safety)
         document.addEventListener('contextmenu', function(e) {
-            if(e.target.closest('.egg') || e.target.closest('img') || e.target.closest('.meme-card')) {
+            if(e.target.tagName === 'IMG' || e.target.closest('.card-icon') || e.target.closest('.glass-panel')) {
                 e.preventDefault();
                 return false;
             }
         });
-
-        // interaktif telur - random stiker gemesin
-        const eggDiv = document.getElementById('eggZone');
-        const eggEmojiSpan = document.getElementById('eggEmoji');
-        const stickerMsgSpan = document.getElementById('stickerMsg');
-        const randomTextSpan = document.getElementById('randomText');
-        const randomBtn = document.getElementById('randomBtn');
         
-        // koleksi meme & reaksi
-        const stickerList = [
-            "🥚💥 MELETUS GES", "🍳🍳 TELUR OMElet JOMOK", "🐣 CHICKEN NUGGETT", "🤣 BOCIL GEMES", "✨ TELUR GAIB ✨", 
-            "😭💔 JANGAN DIPECAHIN", "🍳🔫 TELUR DADAR SAD BOY", "🤡 Woy jangan serius", "🥚➡️🐔 proses jadi ayam", 
-            "💅🏻 telur estetik", "🍳👶🏻 telur bocil", "🇮🇩 TELUR GORENG JAWA"
-        ];
-        const randomAdvice = [
-            "🍜🍥 Telur gulung mantap jiwa", "🤭 Jangan lupa senyum wkwk", "❤️ Hari ini kamu kocak abis", 
-            "🍗 Ayam Geprek itu jawaban", "🥟 Bakso aci kiamat favorit bocil", "✨ Siapa yang suka gombal? rahasia 🤫", 
-            "⭐ Coba klik link telur gulung 👀", "🤪 jangan lupa minum", "👻 Eh rahasia: link1= surprise lucu, link2= jg surprise", 
-            "🎂 HBD? apa ya? gatau deh pokonya gas", "😼🐣 website ini punya 2 hidden gem", "🫣 bucin? iyh wkwk", 
-            "🍳🥚 rahasia telur adalah ...", "🪄✨ hati2 ketagihan", "🤣🤣 random banget hari ini"
-        ];
+        // block dragstart globally
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
         
-        // efek suara klik (pakai web audio biar interaktif & tanpa file eksternal)
-        let audioCtx = null;
-        function playPopSound() {
-            try {
-                if(!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.frequency.value = 880;
-                gain.gain.value = 0.2;
-                osc.type = 'sine';
-                gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.3);
-                // resume context jika suspend (hrs user interaksi)
-                if(audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
-            } catch(e) { console.log("sound skip", e); }
-        }
+        // untuk anti screenshot biasa ga bisa dicegah total, setidaknya protect draggable dan teks
+        // tambahkan CSS user-select enforce via js juga
+        document.body.style.userSelect = 'none';
+        document.body.style.webkitUserSelect = 'none';
         
-        // interactive egg click & efek ledakan telur
-        let eggClickCount = 0;
-        function handleEggExplode() {
-            eggClickCount++;
-            playPopSound();
-            // ubah telur jadi ekspresi random
-            const eggFaces = ["🍳💥", "🥚🤯", "🍳🔥", "🐣🍳", "💢🥚", "✨🍳✨", "🤪🍳", "🫠🍳", "🥚❓"];
-            const randomEgg = eggFaces[Math.floor(Math.random() * eggFaces.length)];
-            eggEmojiSpan.innerText = randomEgg;
-            // pilih stiker random dari list
-            const randomStick = stickerList[Math.floor(Math.random() * stickerList.length)];
-            stickerMsgSpan.innerText = randomStick;
+        // ---------- FUN INTERACTIVE: navigation dengan efek playful ----------
+        const cards = document.querySelectorAll('.card');
+        
+        function openPortal(url, cardName) {
+            // efek animasi lucu sebelum redirect
+            const cardElem = event?.currentTarget || null;
+            if(cardElem) {
+                cardElem.style.transform = 'scale(0.97)';
+                setTimeout(() => { cardElem.style.transform = ''; }, 120);
+            }
+            // sedikit sentuhan tambahan: bubble notifikasi ringan
+            const toastMsg = document.createElement('div');
+            toastMsg.innerText = `🚀 mengarahkan ke portal rahasia...`;
+            toastMsg.style.position = 'fixed';
+            toastMsg.style.bottom = '20px';
+            toastMsg.style.left = '50%';
+            toastMsg.style.transform = 'translateX(-50%)';
+            toastMsg.style.background = '#2d2a24d9';
+            toastMsg.style.backdropFilter = 'blur(8px)';
+            toastMsg.style.color = '#ffefcf';
+            toastMsg.style.padding = '8px 18px';
+            toastMsg.style.borderRadius = '40px';
+            toastMsg.style.fontSize = '0.8rem';
+            toastMsg.style.fontWeight = '500';
+            toastMsg.style.zIndex = '999';
+            toastMsg.style.pointerEvents = 'none';
+            toastMsg.style.fontFamily = 'inherit';
+            toastMsg.style.boxShadow = '0 6px 14px rgba(0,0,0,0.1)';
+            document.body.appendChild(toastMsg);
             setTimeout(() => {
-                // balikin ke telur normal tapi ga monoton
-                if(eggClickCount % 3 === 0) eggEmojiSpan.innerText = "🍳🥚🤍";
-                else eggEmojiSpan.innerText = "🥚🍳✨";
-                setTimeout(() => {
-                    if(eggClickCount % 2 === 0) stickerMsgSpan.innerText = "gas terus wkwkwk";
-                    else stickerMsgSpan.innerText = "klik lagi dong ~";
-                }, 700);
-            }, 1100);
-            // stiker sementara 1 detik lebih
-        }
-        eggDiv.addEventListener('click', handleEggExplode);
-        
-        // 2 link asli tidak bocorin isi, tapi tooltip random biar lucu
-        const link1 = document.getElementById('secretLink1');
-        const link2 = document.getElementById('secretLink2');
-        link1.setAttribute('title', '🍳 rahasia menu telur gulung spesial... 👀 jangan spill!');
-        link2.setAttribute('title', '🥟 bakso aci level dewa, ada surprise di dalemnya! 😭');
-        // tambahan fake link cuma meme interaktif tapi muncul alert jomok
-        const fake1 = document.getElementById('fakeLinkMeme');
-        const fake2 = document.getElementById('fakeLinkMeme2');
-        fake1.addEventListener('click', (e) => {
-            e.preventDefault();
-            playPopSound();
-            alert("🍗🫢 AYAM GEPREK NYANGKAUT! maaf ini cuma meme, link aslinya dua di atas yak wkwkwk");
-        });
-        fake2.addEventListener('click', (e) => {
-            e.preventDefault();
-            playPopSound();
-            alert("🍳 TELUR DADAR NGENES 😭😭 gak ada link nyata, tapi coba klik yang 'telur gulung bunuh diri' yak!");
-        });
-        
-        // random saran / gombal2 hidden 
-        randomBtn.addEventListener('click', () => {
-            playPopSound();
-            const randomAdv = randomAdvice[Math.floor(Math.random() * randomAdvice.length)];
-            randomTextSpan.innerText = randomAdv;
-            // extra efek teks berubah warna
-            randomTextSpan.style.transition = "0.1s";
-            randomTextSpan.style.backgroundColor = "#fff0c0";
-            setTimeout(() => { randomTextSpan.style.backgroundColor = "white"; }, 200);
-        });
-        
-        // background musik interaktif (pakai oscillator simple biar ga perlu file, tetap ada 'musik' lucu kaya jingle pendek)
-        let musicActive = false;
-        let musicOsc = null;
-        let musicGain = null;
-        let intervalId = null;
-        const musicBtnDiv = document.getElementById('musicBtn');
-        const musicStatusSpan = document.getElementById('musicStatus');
-        
-        function stopMusic() {
-            if(intervalId) {
-                clearInterval(intervalId);
-                intervalId = null;
-            }
-            if(musicOsc) {
-                try {
-                    musicOsc.stop();
-                } catch(e) {}
-                musicOsc = null;
-            }
-            if(musicGain) musicGain.disconnect();
-            musicActive = false;
-            musicStatusSpan.innerText = "🔇 mati, pencet buat lagu";
+                toastMsg.style.opacity = '0';
+                setTimeout(() => toastMsg.remove(), 300);
+            }, 800);
+            
+            // delay sedikit biar ada kesan misterius
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 120);
         }
         
-        function startSimpleJingle() {
-            if(!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        cards.forEach(card => {
+            const url = card.getAttribute('data-url');
+            if(url) {
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openPortal(url);
+                });
+                // menambahkan gaya kursor pointer
+                card.style.cursor = 'pointer';
             }
-            if(audioCtx.state === 'suspended') {
-                audioCtx.resume();
+        });
+        
+        // bonus: hover ripple playful (opsional)
+        const style = document.createElement('style');
+        style.textContent = `
+            .card {
+                transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.2s;
             }
-            stopMusic(); // matikan yg lama
-            musicActive = true;
-            musicStatusSpan.innerText = "🎶 lagu jomok on 🎧";
-            // buat melody sederhana pake scheduler
-            let noteTime = 0;
-            const notes = [523.25, 587.33, 659.25, 523.25, 493.88, 523.25, 587.33, 523.25]; // do re mi do si do re do
-            const durations = [0.3, 0.3, 0.3, 0.4, 0.3, 0.3, 0.3, 0.6];
-            let index = 0;
-            function playNote() {
-                if(!musicActive) return;
-                const now = audioCtx.currentTime;
-                const oscNote = audioCtx.createOscillator();
-                const gainNote = audioCtx.createGain();
-                oscNote.connect(gainNote);
-                gainNote.connect(audioCtx.destination);
-                oscNote.frequency.value = notes[index % notes.length];
-                gainNote.gain.value = 0.12;
-                gainNote.gain.exponentialRampToValueAtTime(0.0001, now + durations[index % durations.length]);
-                oscNote.start(now);
-                oscNote.stop(now + durations[index % durations.length]);
-                index++;
-                if(index >= notes.length) index = 0;
+            .card:active {
+                transform: scale(0.97);
             }
-            // putar setiap durasi
-            let currentIdx = 0;
-            intervalId = setInterval(() => {
-                if(!musicActive) return;
-                playNote();
-            }, 400);
-            // pertama langsung
-            playNote();
+            .glass-panel {
+                transition: all 0.2s;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // menambahkan sentuhan mobile friendly untuk menghindari zoom berlebih tetap nyaman
+        const viewportMeta = document.querySelector('meta[name="viewport"]');
+        if(viewportMeta) {
+            viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover');
         }
         
-        musicBtnDiv.addEventListener('click', () => {
-            playPopSound();
-            if(!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            if(musicActive) {
-                stopMusic();
-                musicStatusSpan.innerText = "🔇 mati, pencet buat lagu";
-            } else {
-                startSimpleJingle();
-            }
-            if(audioCtx && audioCtx.state === 'suspended') {
-                audioCtx.resume();
-            }
-        });
-        
-        // tambahan efek gemes: saat halaman dimuat, muncul tooltip random
-        setTimeout(() => {
-            const msgs = ["🐣 g jangan di drag gambarnya ya", "🍳 telur klik-klik lucu", "link2 ada surprise wkwk", "ini web punya siapa? kamu bang"];
-            const randomMsg = msgs[Math.floor(Math.random() * msgs.length)];
-            const fakeToast = document.createElement('div');
-            fakeToast.innerText = "✨ " + randomMsg + " ✨";
-            fakeToast.style.position = 'fixed';
-            fakeToast.style.bottom = '20px';
-            fakeToast.style.left = '20px';
-            fakeToast.style.backgroundColor = '#ffd966';
-            fakeToast.style.padding = '8px 15px';
-            fakeToast.style.borderRadius = '50px';
-            fakeToast.style.fontWeight = 'bold';
-            fakeToast.style.zIndex = '9999';
-            fakeToast.style.boxShadow = '0 4px 12px black';
-            fakeToast.style.fontSize = '0.9rem';
-            document.body.appendChild(fakeToast);
-            setTimeout(() => { fakeToast.remove(); }, 2800);
-        }, 600);
-        
-        // sedikit interaksi stiker gimmick hover pada kedua link utama 
-        const realLinks = [link1, link2];
-        realLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                if(Math.random() > 0.6) {
-                    stickerMsgSpan.innerText = "🤫🤫 isinya rahasia... cie yang penasaran";
-                    setTimeout(() => {
-                        if(stickerMsgSpan.innerText === "🤫🤫 isinya rahasia... cie yang penasaran") 
-                            stickerMsgSpan.innerText = "klik telur yuk! 🥚";
-                    }, 1300);
-                }
-            });
-        });
-        
-        // sentuhan akhir: agar webkit, backdrop, dan ga keliatan AI banget, tambahin banyak komentar gaya manusia
-        console.log("✅ web jomok siap, gas link favorit bocil & cewek gemesin");
+        // sedikit easter egg lucu di console? (tidak merusak kesan natural)
+        console.log("%c✨ ini portal misterius! coba klik kartunya ✨", "color: #F97316; font-size: 14px; font-weight: bold;");
     })();
 </script>
 </body>
 </html>
-```
