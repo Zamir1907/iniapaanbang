@@ -1,460 +1,610 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>iniapaanbang · portal misteri</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="iniapaanbang - satu halaman kecil berisi dua pintu buat dibuka pelan-pelan.">
+<title>iniapaanbang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-        body {
-            background: linear-gradient(145deg, #fff9e8 0%, #ffe6d5 100%);
-            font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            position: relative;
-            overflow-x: hidden;
-        }
+  :root {
+    --yellow: #FFE34D;
+    --pink: #FF6B9D;
+    --purple: #9B5DE5;
+    --blue: #48CAE4;
+    --green: #57CC99;
+    --orange: #FF9F1C;
+    --bg: #FFFBF2;
+    --dark: #181827;
+    --mid: #4B4A63;
+    --muted: #A29BB9;
+    --line: #E7DFF5;
+    --card1: #FFF0F6;
+    --card2: #EFF9FF;
+    --radius: 18px;
+    --shadow: 0 14px 38px rgba(64, 45, 116, 0.11);
+  }
 
-        /* floating playful blobs */
-        .blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(60px);
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.5;
-            animation: floatBlob 16s infinite alternate ease-in-out;
-        }
+  html { scroll-behavior: smooth; }
 
-        .blob1 { width: 280px; height: 280px; background: #ffc8a2; top: -80px; left: -60px; }
-        .blob2 { width: 360px; height: 360px; background: #b5e3ff; bottom: -100px; right: -70px; animation-duration: 19s; }
-        .blob3 { width: 200px; height: 200px; background: #ffefb0; top: 40%; right: 10%; animation-duration: 13s; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-        @keyframes floatBlob {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, -25px) scale(1.05); }
-        }
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 140px;
+  }
 
-        /* main container */
-        .glass-panel {
-            background: rgba(255, 254, 245, 0.85);
-            backdrop-filter: blur(12px);
-            border-radius: 3rem;
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 200, 0.6);
-            padding: 2rem 1.8rem;
-            max-width: 700px;
-            width: 100%;
-            transition: all 0.3s ease;
-            z-index: 2;
-            border: 1px solid rgba(255,245,210,0.7);
-        }
+  .blob {
+    position: fixed;
+    border-radius: 999px;
+    filter: blur(92px);
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+    animation: blobFloat 12s ease-in-out infinite;
+  }
 
-        @media (max-width: 550px) {
-            body { padding: 1rem; }
-            .glass-panel { padding: 1.6rem 1.3rem; border-radius: 2rem; }
-        }
+  .blob-1 {
+    width: 410px;
+    height: 410px;
+    background: var(--purple);
+    top: -120px;
+    left: -130px;
+  }
 
-        /* header section */
-        .hero {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
+  .blob-2 {
+    width: 320px;
+    height: 320px;
+    background: var(--pink);
+    right: -110px;
+    bottom: -90px;
+    animation-delay: 2.5s;
+  }
 
-        .badge {
-            display: inline-block;
-            background: #ffedb5;
-            border-radius: 100px;
-            padding: 0.3rem 1rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            color: #b45f2b;
-            box-shadow: inset 0 -1px 0 rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.02);
-            margin-bottom: 1rem;
-        }
+  .blob-3 {
+    width: 230px;
+    height: 230px;
+    background: var(--yellow);
+    top: 42%;
+    right: 18%;
+    animation-delay: 5s;
+  }
 
-        h1 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #F97316, #F43F5E, #8B5CF6);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-        }
+  @keyframes blobFloat {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(18px, -16px, 0) scale(1.04); }
+  }
 
-        .sub {
-            font-size: 1rem;
-            color: #5b4b3a;
-            background: #fff3e0bb;
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 60px;
-            backdrop-filter: blur(2px);
-            font-weight: 500;
-        }
+  .container {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 720px);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 56px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-        .description {
-            margin-top: 1.3rem;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #5a4c3c;
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-        }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 26px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--dark);
+    color: var(--yellow);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    animation: fadeDown 0.55s ease both;
+  }
 
-        /* card style - playful */
-        .link-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin: 2.8rem 0 1.2rem;
-        }
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--green);
+    box-shadow: 0 0 0 0 rgba(87, 204, 153, 0.55);
+    animation: pulse 2.4s ease infinite;
+  }
 
-        .card {
-            background: white;
-            border-radius: 2rem;
-            transition: transform 0.25s ease, box-shadow 0.2s;
-            box-shadow: 0 12px 22px -12px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(253, 186, 116, 0.4);
-            cursor: pointer;
-            overflow: hidden;
-            transform: scale(1);
-        }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(87, 204, 153, 0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(87, 204, 153, 0); }
+  }
 
-        .card:hover {
-            transform: translateY(-5px) scale(1.01);
-            box-shadow: 0 24px 32px -16px rgba(0, 0, 0, 0.2);
-        }
+  .hero-title {
+    margin-bottom: 18px;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 10vw, 78px);
+    font-weight: 800;
+    line-height: 0.98;
+    text-align: center;
+    letter-spacing: -0.015em;
+    animation: fadeDown 0.6s 0.08s ease both;
+  }
 
-        .card:active {
-            transform: scale(0.98);
-        }
+  .hero-title .line1 {
+    display: block;
+  }
 
-        .card-inner {
-            padding: 1.4rem 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+  .hero-title .accent {
+    display: inline-block;
+    background: linear-gradient(120deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
-        .card-icon {
-            font-size: 2.8rem;
-            background: #fef2e8;
-            width: 65px;
-            height: 65px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 2rem;
-            transition: all 0.2s;
-            box-shadow: inset 0 1px 2px #fff8, 0 4px 8px rgba(0,0,0,0.02);
-        }
+  .hero-sub {
+    max-width: 500px;
+    margin-bottom: 44px;
+    color: var(--mid);
+    font-size: clamp(15px, 3.4vw, 18px);
+    line-height: 1.72;
+    text-align: center;
+    animation: fadeDown 0.6s 0.16s ease both;
+  }
 
-        .card-content {
-            flex: 1;
-        }
+  .hero-sub strong {
+    color: var(--dark);
+    font-weight: 600;
+  }
 
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 40px;
+    animation: fadeUp 0.65s 0.28s ease both;
+  }
 
-        .card-badge {
-            background: #ffe0b5;
-            border-radius: 60px;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.7rem;
-            font-weight: 500;
-            color: #b45f2b;
-        }
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 218px;
+    padding: 28px 24px 24px;
+    overflow: hidden;
+    border: 1.5px solid transparent;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  }
 
-        .card-desc {
-            color: #6b5a48;
-            font-size: 0.85rem;
-            margin-top: 6px;
-            letter-spacing: -0.2px;
-        }
+  .card:hover,
+  .card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 50px rgba(64, 45, 116, 0.16);
+    outline: none;
+  }
 
-        .arrow-hint {
-            font-size: 1.4rem;
-            color: #fdba74;
-            transition: transform 0.2s;
-        }
+  .card:active {
+    transform: translateY(-1px) scale(0.99);
+  }
 
-        .card:hover .arrow-hint {
-            transform: translateX(5px);
-        }
+  .card-1 {
+    background: var(--card1);
+    border-color: #FFD0E5;
+  }
 
-        @media (max-width: 550px) {
-            .card-inner {
-                padding: 1rem 1.2rem;
-            }
-            .card-icon {
-                width: 52px;
-                height: 52px;
-                font-size: 2rem;
-            }
-            .card-title {
-                font-size: 1.25rem;
-            }
-        }
+  .card-2 {
+    background: var(--card2);
+    border-color: #C5EEFF;
+  }
 
-        /* mysterius divider + footer */
-        .whisper {
-            text-align: center;
-            margin: 1.2rem 0 0.8rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #ad8a6c;
-            background: #ffe5ce70;
-            width: fit-content;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0.3rem 1rem;
-            border-radius: 60px;
-            backdrop-filter: blur(2px);
-        }
+  .card-stripe {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 5px;
+  }
 
-        .footer-note {
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #c2a07e;
-            border-top: 1px dashed #ffdeb8;
-            padding-top: 1.2rem;
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
+  .card-1 .card-stripe {
+    background: linear-gradient(90deg, var(--pink), var(--orange));
+  }
 
-        .footer-note span {
-            cursor: default;
-        }
+  .card-2 .card-stripe {
+    background: linear-gradient(90deg, var(--blue), var(--purple));
+  }
 
-        /* anti drag + select prevention */
-        img, .card, .card-icon, .glass-panel {
-            user-select: none;
-            -webkit-user-drag: none;
-            user-drag: none;
-            -webkit-touch-callout: none;
-        }
+  .card-icon {
+    font-size: 34px;
+    line-height: 1;
+  }
 
-        body {
-            user-select: none;
-        }
+  .card-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
 
-        /* subtle animation entry */
-        @keyframes fadeSlideUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
+  .card-1 .card-label { color: #D94E82; }
+  .card-2 .card-label { color: #2389AB; }
 
-        .glass-panel {
-            animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    color: var(--dark);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.22;
+  }
 
-        .card {
-            animation: fadeSlideUp 0.45s backwards;
-        }
+  .card-desc {
+    flex: 1;
+    color: var(--mid);
+    font-size: 13.5px;
+    line-height: 1.58;
+  }
 
-        .card:first-child { animation-delay: 0.05s; }
-        .card:last-child { animation-delay: 0.1s; }
-    </style>
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    width: fit-content;
+    margin-top: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: gap 0.2s ease;
+  }
+
+  .card:hover .card-cta,
+  .card:focus-visible .card-cta {
+    gap: 11px;
+  }
+
+  .card-1 .card-cta {
+    background: #FFE0EE;
+    color: #C43F74;
+  }
+
+  .card-2 .card-cta {
+    background: #D8F2FF;
+    color: #1A7D9D;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    margin-bottom: 28px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    animation: fadeUp 0.65s 0.36s ease both;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+  }
+
+  .fun-facts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 42px;
+    animation: fadeUp 0.65s 0.43s ease both;
+  }
+
+  .fun-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1.5px solid #EDE8FF;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--mid);
+    font-size: 12.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .fun-tag:hover,
+  .fun-tag:focus-visible {
+    transform: translateY(-2px);
+    border-color: #D7C6FF;
+    background: #FFFFFF;
+    outline: none;
+  }
+
+  .sound-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 20px;
+    padding: 8px 13px;
+    border: 1.5px solid #E7DFF5;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.68);
+    color: var(--mid);
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    animation: fadeUp 0.65s 0.5s ease both;
+  }
+
+  .sound-toggle:hover,
+  .sound-toggle:focus-visible {
+    transform: translateY(-2px);
+    border-color: #D7C6FF;
+    color: var(--dark);
+    outline: none;
+  }
+
+  .sound-toggle[aria-pressed="true"] {
+    border-color: #D7C6FF;
+    color: var(--dark);
+  }
+
+  .footer-text {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.75;
+    text-align: center;
+    animation: fadeUp 0.65s 0.55s ease both;
+  }
+
+  .confetti-burst {
+    position: fixed;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    animation: confettiFall 0.9s ease forwards;
+  }
+
+  .wiggle {
+    animation: wiggle 0.34s ease;
+  }
+
+  @keyframes confettiFall {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) rotate(var(--rot)); opacity: 0; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0); }
+    30% { transform: rotate(-4deg); }
+    70% { transform: rotate(4deg); }
+  }
+
+  @media (max-width: 540px) {
+    .container {
+      padding-top: 44px;
+      padding-bottom: 44px;
+    }
+
+    .cards-grid {
+      grid-template-columns: 1fr;
+      margin-bottom: 36px;
+    }
+
+    .card {
+      min-height: auto;
+    }
+
+    .divider {
+      font-size: 11.5px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+</style>
 </head>
 <body>
+<div class="noise-overlay" aria-hidden="true"></div>
+<div class="blob blob-1" aria-hidden="true"></div>
+<div class="blob blob-2" aria-hidden="true"></div>
+<div class="blob blob-3" aria-hidden="true"></div>
 
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div class="blob blob3"></div>
+<main class="container">
+  <div class="badge">
+    <span class="badge-dot" aria-hidden="true"></span>
+    lagi bisa dibuka
+  </div>
 
-<div class="glass-panel">
-    <div class="hero">
-        <div class="badge">✨ portal gaul ✨</div>
-        <h1>iniapaanbang</h1>
-        <div class="sub">.pages.dev</div>
-        <div class="description">
-            🍬 yow, selamat datang di lorong paling misterius & colorful!  
-            Dua gerbang rahasia menunggu — pilih yang bikin kamu penasaran.
-        </div>
-    </div>
+  <h1 class="hero-title">
+    <span class="line1">ini apaan</span>
+    <span class="accent">bang?</span>
+  </h1>
 
-    <div class="link-cards">
-        <!-- CARD 1 - zaxhub.pages.dev (rizz / gombal) disamarkan -->
-        <div class="card" data-url="https://zaxhub.pages.dev">
-            <div class="card-inner">
-                <div class="card-icon">
-                    🌟
-                </div>
-                <div class="card-content">
-                    <div class="card-title">
-                        Zax Galaxy
-                        <span class="card-badge">🔥 baru rilis</span>
-                    </div>
-                    <div class="card-desc">
-                        ⚡ "tempat kamu nemuin jurus-jurus spesial buat bikin hati meleleh."  
-                        ada sesuatu yang manis, gak ngebosenin, dan bikin senyum-senyum sendiri...
-                    </div>
-                </div>
-                <div class="arrow-hint">➡️</div>
-            </div>
-        </div>
+  <p class="hero-sub">
+    Lo sampai sini bukan karena salah klik.
+    Ada dua pintu kecil di bawah, masing-masing punya mood sendiri.
+    Pilih yang paling bikin lo penasaran.
+  </p>
 
-        <!-- CARD 2 - secretbyzax.pages.dev (ucapan spesial / rahasia) lebih misterius-->
-        <div class="card" data-url="https://secretbyzax.pages.dev">
-            <div class="card-inner">
-                <div class="card-icon">
-                    🕯️
-                </div>
-                <div class="card-content">
-                    <div class="card-title">
-                        The Hidden Letter
-                        <span class="card-badge">🔒 rahasia</span>
-                    </div>
-                    <div class="card-desc">
-                        ✨ "hanya untuk yang berani tahu."  
-                        tersimpan pesan yang nggak semua orang bisa baca — ucapan spesial penuh kejutan.
-                    </div>
-                </div>
-                <div class="arrow-hint">➡️</div>
-            </div>
-        </div>
-    </div>
+  <section class="cards-grid" aria-label="Pilihan link">
+    <a class="card card-1" href="https://zaxhub.pages.dev" target="_blank" rel="noopener">
+      <span class="card-stripe" aria-hidden="true"></span>
+      <span class="card-icon" aria-hidden="true">✨</span>
+      <span class="card-label">Pintu 01</span>
+      <span class="card-title">Buat yang Lagi Lembut Hatinya</span>
+      <span class="card-desc">Isinya manis, tapi masih aman. Cocok dibuka pelan-pelan kalau lagi butuh sesuatu yang hangat.</span>
+      <span class="card-cta">Masuk dulu <span aria-hidden="true">→</span></span>
+    </a>
 
-    <div class="whisper">
-        🧩 psst... klik salah satu — siapa tau surprise-nya bikin kamu: "lah iya ya?"
-    </div>
-    <div class="footer-note">
-        <span>✨ petualangan klik ✨</span>
-        <span>📱 friendly di semua layar</span>
-        <span>🍭 no spoiler ~</span>
-    </div>
-</div>
+    <a class="card card-2" href="https://secretbyzax.pages.dev" target="_blank" rel="noopener">
+      <span class="card-stripe" aria-hidden="true"></span>
+      <span class="card-icon" aria-hidden="true">🔒</span>
+      <span class="card-label">Pintu 02</span>
+      <span class="card-title">Buat yang Paham Rasanya</span>
+      <span class="card-desc">Bukan halaman buat semua orang. Tapi kalau dari judulnya udah terasa dekat, mungkin ini memang buat lo.</span>
+      <span class="card-cta">Buka pelan-pelan <span aria-hidden="true">→</span></span>
+    </a>
+  </section>
+
+  <div class="divider">beberapa petunjuk kecil</div>
+
+  <div class="fun-facts" aria-label="Tag suasana">
+    <button class="fun-tag" type="button">✨ soft mode</button>
+    <button class="fun-tag" type="button">🎯 tanpa konteks panjang</button>
+    <button class="fun-tag" type="button">🫶 dibuat pakai rasa</button>
+    <button class="fun-tag" type="button">🤫 ada rahasianya</button>
+    <button class="fun-tag" type="button">☁️ ringan dibuka</button>
+    <button class="fun-tag" type="button">🌸 klik kalau siap</button>
+  </div>
+
+  <button class="sound-toggle" type="button" aria-pressed="false">
+    <span aria-hidden="true">🔇</span>
+    suara mati
+  </button>
+
+  <p class="footer-text">
+    iniapaanbang.pages.dev - portal kecil yang namanya cukup jujur.<br>
+    Tanpa iklan, tanpa jebakan, cuma dua pintu buat dicoba.
+  </p>
+</main>
 
 <script>
-    (function() {
-        // disable drag on almost everything (prevent image saving / content drag)
-        const allElements = document.querySelectorAll('*');
-        allElements.forEach(el => {
-            el.setAttribute('draggable', 'false');
-            if(el.style) {
-                el.style.webkitUserDrag = 'none';
-                el.style.userDrag = 'none';
-            }
-        });
-        
-        // also block contextmenu on images if there is any hidden image (just extra safety)
-        document.addEventListener('contextmenu', function(e) {
-            if(e.target.tagName === 'IMG' || e.target.closest('.card-icon') || e.target.closest('.glass-panel')) {
-                e.preventDefault();
-                return false;
-            }
-        });
-        
-        // block dragstart globally
-        document.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        // untuk anti screenshot biasa ga bisa dicegah total, setidaknya protect draggable dan teks
-        // tambahkan CSS user-select enforce via js juga
-        document.body.style.userSelect = 'none';
-        document.body.style.webkitUserSelect = 'none';
-        
-        // ---------- FUN INTERACTIVE: navigation dengan efek playful ----------
-        const cards = document.querySelectorAll('.card');
-        
-        function openPortal(url, cardName) {
-            // efek animasi lucu sebelum redirect
-            const cardElem = event?.currentTarget || null;
-            if(cardElem) {
-                cardElem.style.transform = 'scale(0.97)';
-                setTimeout(() => { cardElem.style.transform = ''; }, 120);
-            }
-            // sedikit sentuhan tambahan: bubble notifikasi ringan
-            const toastMsg = document.createElement('div');
-            toastMsg.innerText = `🚀 mengarahkan ke portal rahasia...`;
-            toastMsg.style.position = 'fixed';
-            toastMsg.style.bottom = '20px';
-            toastMsg.style.left = '50%';
-            toastMsg.style.transform = 'translateX(-50%)';
-            toastMsg.style.background = '#2d2a24d9';
-            toastMsg.style.backdropFilter = 'blur(8px)';
-            toastMsg.style.color = '#ffefcf';
-            toastMsg.style.padding = '8px 18px';
-            toastMsg.style.borderRadius = '40px';
-            toastMsg.style.fontSize = '0.8rem';
-            toastMsg.style.fontWeight = '500';
-            toastMsg.style.zIndex = '999';
-            toastMsg.style.pointerEvents = 'none';
-            toastMsg.style.fontFamily = 'inherit';
-            toastMsg.style.boxShadow = '0 6px 14px rgba(0,0,0,0.1)';
-            document.body.appendChild(toastMsg);
-            setTimeout(() => {
-                toastMsg.style.opacity = '0';
-                setTimeout(() => toastMsg.remove(), 300);
-            }, 800);
-            
-            // delay sedikit biar ada kesan misterius
-            setTimeout(() => {
-                window.open(url, '_blank');
-            }, 120);
-        }
-        
-        cards.forEach(card => {
-            const url = card.getAttribute('data-url');
-            if(url) {
-                card.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openPortal(url);
-                });
-                // menambahkan gaya kursor pointer
-                card.style.cursor = 'pointer';
-            }
-        });
-        
-        // bonus: hover ripple playful (opsional)
-        const style = document.createElement('style');
-        style.textContent = `
-            .card {
-                transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.2s;
-            }
-            .card:active {
-                transform: scale(0.97);
-            }
-            .glass-panel {
-                transition: all 0.2s;
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // menambahkan sentuhan mobile friendly untuk menghindari zoom berlebih tetap nyaman
-        const viewportMeta = document.querySelector('meta[name="viewport"]');
-        if(viewportMeta) {
-            viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover');
-        }
-        
-        // sedikit easter egg lucu di console? (tidak merusak kesan natural)
-        console.log("%c✨ ini portal misterius! coba klik kartunya ✨", "color: #F97316; font-size: 14px; font-weight: bold;");
-    })();
+  const cards = document.querySelectorAll('.card');
+  const tags = document.querySelectorAll('.fun-tag');
+  const soundToggle = document.querySelector('.sound-toggle');
+  let audioEnabled = false;
+  let audioContext;
+
+  soundToggle.addEventListener('click', () => {
+    audioEnabled = !audioEnabled;
+    soundToggle.setAttribute('aria-pressed', String(audioEnabled));
+    soundToggle.innerHTML = audioEnabled
+      ? '<span aria-hidden="true">🔊</span> suara aktif'
+      : '<span aria-hidden="true">🔇</span> suara mati';
+
+    if (audioEnabled) playTapSound(540, 0.045);
+  });
+
+  cards.forEach(card => {
+    card.addEventListener('click', event => {
+      spawnConfetti(event.clientX, event.clientY);
+      playTapSound(620, 0.055);
+    });
+  });
+
+  tags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      tag.classList.remove('wiggle');
+      void tag.offsetWidth;
+      tag.classList.add('wiggle');
+      playTapSound(440, 0.04);
+    });
+  });
+
+  function playTapSound(frequency, duration) {
+    if (!audioEnabled) return;
+
+    audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    const now = audioContext.currentTime;
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency, now);
+    oscillator.frequency.exponentialRampToValueAtTime(frequency * 0.72, now + duration);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.045, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    oscillator.start(now);
+    oscillator.stop(now + duration + 0.02);
+  }
+
+  function spawnConfetti(x, y) {
+    const colors = ['#FF6B9D', '#9B5DE5', '#FFE34D', '#48CAE4', '#57CC99', '#FF9F1C'];
+    const burst = document.createElement('div');
+    burst.className = 'confetti-burst';
+    burst.style.left = `${x}px`;
+    burst.style.top = `${y}px`;
+    document.body.appendChild(burst);
+
+    for (let i = 0; i < 12; i++) {
+      const piece = document.createElement('span');
+      const angle = (Math.PI * 2 / 12) * i;
+      const distance = 46 + Math.random() * 48;
+
+      piece.className = 'confetti-piece';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.left = '-4px';
+      piece.style.top = '-4px';
+      piece.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
+      piece.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
+      piece.style.setProperty('--rot', `${Math.random() * 280}deg`);
+      burst.appendChild(piece);
+    }
+
+    window.setTimeout(() => burst.remove(), 950);
+  }
 </script>
 </body>
 </html>
