@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Dua pintu misterius yang siap kamu buka—siapa tau ada kejutan di baliknya.">
-<title>ini apaan sih?</title>
+<meta name="description" content="iniapaanbang - satu halaman kecil berisi dua pintu buat dibuka pelan-pelan.">
+<title>iniapaanbang?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -44,17 +44,19 @@
     overflow-x: hidden;
   }
 
-  *{
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-  }
 
-  img{
-    -webkit-user-drag: none;
-    user-drag: none;
-  }
+        *{
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        img{
+            -webkit-user-drag: none;
+            user-drag: none;
+        }
+   
 
   .noise-overlay {
     position: fixed;
@@ -481,60 +483,60 @@
 <main class="container">
   <div class="badge">
     <span class="badge-dot" aria-hidden="true"></span>
-    lagi online nih
+    online
   </div>
 
   <h1 class="hero-title">
     <span class="line1">ini apaan</span>
-    <span class="accent">sih?</span>
+    <span class="accent">bang?</span>
   </h1>
 
-  <p class="hero-sub">
-    Penasaran? Di sini ada <strong>dua pintu misterius</strong> yang siap kamu buka. 
-    Siapa tahu di balik salah satunya ada <strong>saldo DANA</strong> yang nganggur—atau malah cuma gambar kucing lucu. 
-    <br><br>
-    Intinya sih: <strong>klik aja, nanti juga tau</strong> 😄
-  </p>
+ <p class="hero-sub">
+  kamu penasaran ya.
+  jadi di bawah ada tombol magic (anjay), kalau beruntung kamu bakalan dapat saldo dana.
+</p>
 
   <section class="cards-grid" aria-label="Pilihan link">
     <a class="card card-1" href="https://zaxhub.pages.dev" target="_blank" rel="noopener">
       <span class="card-stripe" aria-hidden="true"></span>
       <span class="card-icon" aria-hidden="true">😂</span>
       <span class="card-label">Episode 01</span>
-      <span class="card-title">Yang ini buat sadgirl</span>
-      <span class="card-desc">Isinya? Entahlah, coba aja sendiri. Mungkin berisi kejutan, mungkin enggak.</span>
-      <span class="card-cta">Cus <span aria-hidden="true">→</span></span>
+      <span class="card-title">Buat yang sadgril</span>
+      <span class="card-desc">isinya gatau, cek aja sendiri</span>
+      <span class="card-cta">Buka <span aria-hidden="true">→</span></span>
     </a>
 
     <a class="card card-2" href="https://secretbyzax.pages.dev" target="_blank" rel="noopener">
       <span class="card-stripe" aria-hidden="true"></span>
       <span class="card-icon" aria-hidden="true">🗿</span>
       <span class="card-label">Episode 02</span>
-      <span class="card-title">Yang ini buat yang anu</span>
-      <span class="card-desc">Juga gak tau isinya. Tapi namanya juga misteri, makin seru kan kalau gak tau?</span>
-      <span class="card-cta">Gas <span aria-hidden="true">→</span></span>
+      <span class="card-title">Buat yang ini anu</span>
+      <span class="card-desc">gatau juga, cek lagi sendiri</span>
+      <span class="card-cta">Buka <span aria-hidden="true">→</span></span>
     </a>
   </section>
 
-  <div class="divider">Eh, tapi siapa sih yang bikin halaman ini?</div>
+  <div class="divider">btw, yang buat semua ini siapa?</div>
 
   <div class="fun-facts" aria-label="Tag suasana">
-    <button class="fun-tag" type="button">🥰 zax tamvan</button>
-    <button class="fun-tag" type="button">🤗 zax ganteng</button>
-    <button class="fun-tag" type="button">😱 zax menawan</button>
-    <button class="fun-tag" type="button">🥹 zax rupawan</button>
-    <button class="fun-tag" type="button">🤭 zax handsome</button>
-    <button class="fun-tag" type="button">🫣 zax gorgeous</button>
+<button class="fun-tag" type="button">🥰 zax tamvan</button>
+<button class="fun-tag" type="button">🤗 zax ganteng</button>
+<button class="fun-tag" type="button">😱 zax menawan</button>
+<button class="fun-tag" type="button">🥹 zax rupawan</button>
+<button class="fun-tag" type="button">🤭 zax handsome</button>
+<button class="fun-tag" type="button">🫣 zax gorgeous</button>
   </div>
 
   <button class="sound-toggle" type="button" aria-pressed="false">
     <span aria-hidden="true">🔇</span>
-    musiknya mati nih
+    lagu is dead
   </button>
 
-  <footer class="footer-text">
+
+
+ <footer class="footer-text">
     <p>© 2026 iniapaanbang. All Rights Reserved. | IG @mzacky19</p>
-  </footer>
+</footer>
 </main>
 
 <script>
@@ -608,8 +610,8 @@
 
   function updateMusicButton() {
     soundToggle.innerHTML = musicEnabled
-      ? '<span aria-hidden="true">🔊</span> musiknya hidup!'
-      : '<span aria-hidden="true">🔇</span> musiknya mati nih';
+      ? '<span aria-hidden="true">🔊</span> lagu is alive'
+      : '<span aria-hidden="true">🔇</span> lagu is dead';
   }
 
   function spawnConfetti(x, y) {
@@ -637,8 +639,9 @@
 
     window.setTimeout(() => burst.remove(), 950);
   }
-  document.addEventListener("contextmenu", e => e.preventDefault());
-  document.addEventListener("dragstart", e => e.preventDefault());
+   document.addEventListener("contextmenu", e => e.preventDefault());
+        document.addEventListener("dragstart", e => e.preventDefault());
+ 
 </script>
 </body>
 </html>
