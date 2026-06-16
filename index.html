@@ -529,7 +529,7 @@
 
   <button class="sound-toggle" type="button" aria-pressed="false">
     <span aria-hidden="true">🔇</span>
-    lagu is dead
+    musik: nonaktif
   </button>
 
 
@@ -610,8 +610,8 @@
 
   function updateMusicButton() {
     soundToggle.innerHTML = musicEnabled
-      ? '<span aria-hidden="true">🔊</span> lagu is alive'
-      : '<span aria-hidden="true">🔇</span> lagu is dead';
+      ? '<span aria-hidden="true">🔊</span> musik: aktif'
+      : '<span aria-hidden="true">🔇</span> musik: nonaktif';
   }
 
   function spawnConfetti(x, y) {
