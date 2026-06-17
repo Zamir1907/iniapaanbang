@@ -194,7 +194,7 @@
 
   .cards-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
     width: 100%;
     margin-bottom: 40px;
@@ -238,6 +238,8 @@
     border-color: #C5EEFF;
   }
 
+ 
+
   .card-stripe {
     position: absolute;
     inset: 0 0 auto;
@@ -250,6 +252,22 @@
 
   .card-2 .card-stripe {
     background: linear-gradient(90deg, var(--blue), var(--purple));
+  }
+
+ .card-3 {
+    background: #F0FFF4;
+    border-color: #B2F2BB;
+  }
+
+  .card-3 .card-stripe {
+    background: linear-gradient(90deg, var(--green), var(--blue));
+  }
+
+  .card-3 .card-label { color: #2D8A4E; }
+
+  .card-3 .card-cta {
+    background: #C3FAD9;
+    color: #1F6B3A;
   }
 
   .card-icon {
@@ -511,6 +529,15 @@ gatau.
       <span class="card-label">Episode 02</span>
       <span class="card-title">Untuk yang spesial</span>
       <span class="card-desc">cek aja lagi sendiri</span>
+      <span class="card-cta">Buka <span aria-hidden="true">→</span></span>
+    </a>
+   
+<a class="card card-3" href="https://itszax.pages.dev" target="_blank" rel="noopener">
+      <span class="card-stripe" aria-hidden="true"></span>
+      <span class="card-icon" aria-hidden="true">🤗</span>
+      <span class="card-label">Episode 03</span>
+      <span class="card-title">Untuk yang penasaran</span>
+      <span class="card-desc">cek lagi aja sendiri</span>
       <span class="card-cta">Buka <span aria-hidden="true">→</span></span>
     </a>
   </section>
