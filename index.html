@@ -1037,22 +1037,27 @@ var apps = [
 ];
 
   var quotes = [
-    "niat tidur buat ngehindar dari masalah, eh masalahnya malah nungguin aku bangun jir 😭",
-    "hari ini mau produktif, tapi kasur menggunakan jurus gravitational pull 🛌",
-    "pengen kaya raya tapi hobi rebahan dan bernapas saja sudah capek.",
-    "sebenarnya saya tidak malas, saya hanya sedang dalam mode hemat energi bertenaga surya ☀️",
-    "tidur tepat waktu adalah mitos terbesar abad ini.",
-    "otak beneran lancar pas malem jam 2, pas siang balik setelan pabrik.",
-    "hidup ini banyak cobaan, kalau banyak cucian itu laundry.",
-    "masalah kerjaan/tugas bawa santai aja, kalau numpuk ya tinggal merem 🙈",
-    "dompetku seperti bawang, pas dibuka bawaannya pengen nangis.",
-    "tadi niatnya buka sosmed cuma 5 menit, lah kok tahu-tahu subuh.",
-    "sinyal wifi tetangga lebih kuat dibanding masa depan kita berdua.",
-    "selamat pagi buat yang belum tidur dari kemarin.",
-    "hidup itu simpel, yang ribet itu pikiran lu pas nyari typo di baris kode.",
-    "sedang mencari motivasi hidup, kalau ketemu tolong paketin ke alamat rumah.",
-    "jangan menyerah pada impianmu, mari lanjut tidur dan bermimpi lagi 😴"
-  ];
+  // --- POSISI 1-3: Topik Waktu & Layar Laptop ---
+  "perasaan baru senin kemarin. kok sekarang senin lagi dah.",
+  "baru buka hp bentar. tau-tau matahari pindah shift.",
+  "melihat tumpukan file di desktop kyk melihat masa depan: berantakan.",
+
+  // --- POSISI 4-8: Realitas Hidup & Capek Mood ---
+  "kadang yg bikin capek bukan kerjaannya. tp mikirin kerjaannya.",
+  "gatau knp ya, tiap niat tidur cepet pasti malah jadi pengen mikir semua hal.",
+  "udh dewasa ternyata isinya cuma bingung versi premium.",
+  "semoga hari ini minim plot twist ya Allah.",
+  "dikit-dikit pengen resign, padahal kerja aja belum.",
+
+  // --- POSISI 9-Lanjutan: Gaya Delusional & Iseng ---
+  "hari ini harus kaya. minimal di pikiran dulu.",
+  "tadi mau marahin keadaan, tapi inget bentar lagi sore terus malem terus tidur.",
+  "punya potensi besar tapi lebih milih disimpen dulu, takut dunia belum siap.",
+  "lagi di fase gak mau tau apa-apa, tapi klo ada info dikit langsung nyimak.",
+  "tadi ada ide bagus banget buat masa depan, pas kedip langsung lupa.",
+  "sebenarnya gak males, cuma lagi mode hemat energi aja.",
+  "ga semua pertanyaan harus dijawab. contohnya \"udah punya pacar?\""
+];
 
   var trashItems = [];
   var zCounter = 100;
@@ -1678,10 +1683,92 @@ function initChess() {
   var playerColor = 'white';
   var boardFlipped = false;
   
+  var castlingRights = {
+    whiteKing: true,
+    whiteRookKing: true,
+    whiteRookQueen: true,
+    blackKing: true,
+    blackRookKing: true,
+    blackRookQueen: true
+  };
+  
   var PIECES = {
     'white': { 'king': '♔', 'queen': '♕', 'rook': '♖', 'bishop': '♗', 'knight': '♘', 'pawn': '♙' },
     'black': { 'king': '♚', 'queen': '♛', 'rook': '♜', 'bishop': '♝', 'knight': '♞', 'pawn': '♟' }
   };
+  
+  var PSQT = {
+    pawn: [
+      [0,  0,  0,  0,  0,  0,  0,  0],
+      [50, 50, 50, 50, 50, 50, 50, 50],
+      [10, 10, 20, 30, 30, 20, 10, 10],
+      [5,  5, 10, 25, 25, 10,  5,  5],
+      [0,  0,  0, 20, 20,  0,  0,  0],
+      [5, -5,-10,  0,  0,-10, -5,  5],
+      [5, 10, 10,-20,-20, 10, 10,  5],
+      [0,  0,  0,  0,  0,  0,  0,  0]
+    ],
+    knight: [
+      [-50,-40,-30,-30,-30,-30,-40,-50],
+      [-40,-20,  0,  0,  0,  0,-20,-40],
+      [-30,  0, 10, 15, 15, 10,  0,-30],
+      [-30,  5, 15, 20, 20, 15,  5,-30],
+      [-30,  0, 15, 20, 20, 15,  0,-30],
+      [-30,  5, 10, 15, 15, 10,  5,-30],
+      [-40,-20,  0,  5,  5,  0,-20,-40],
+      [-50,-40,-30,-30,-30,-30,-40,-50]
+    ],
+    bishop: [
+      [-20,-10,-10,-10,-10,-10,-10,-20],
+      [-10,  0,  0,  0,  0,  0,  0,-10],
+      [-10,  0,  5, 10, 10,  5,  0,-10],
+      [-10,  5,  5, 10, 10,  5,  5,-10],
+      [-10,  0, 10, 10, 10, 10,  0,-10],
+      [-10, 10, 10, 10, 10, 10, 10,-10],
+      [-10,  5,  0,  0,  0,  0,  5,-10],
+      [-20,-10,-10,-10,-10,-10,-10,-20]
+    ],
+    rook: [
+      [0,  0,  0,  0,  0,  0,  0,  0],
+      [5, 10, 10, 10, 10, 10, 10,  5],
+      [-5,  0,  0,  0,  0,  0,  0, -5],
+      [-5,  0,  0,  0,  0,  0,  0, -5],
+      [-5,  0,  0,  0,  0,  0,  0, -5],
+      [-5,  0,  0,  0,  0,  0,  0, -5],
+      [-5,  0,  0,  0,  0,  0,  0, -5],
+      [0,  0,  0,  5,  5,  0,  0,  0]
+    ],
+    queen: [
+      [-20,-10,-10, -5, -5,-10,-10,-20],
+      [-10,  0,  0,  0,  0,  0,  0,-10],
+      [-10,  0,  5,  5,  5,  5,  0,-10],
+      [-5,  0,  5,  5,  5,  5,  0, -5],
+      [0,  0,  5,  5,  5,  5,  0, -5],
+      [-10,  5,  5,  5,  5,  5,  0,-10],
+      [-10,  0,  5,  0,  0,  0,  0,-10],
+      [-20,-10,-10, -5, -5,-10,-10,-20]
+    ],
+    king: [
+      [-30,-40,-40,-50,-50,-40,-40,-30],
+      [-30,-40,-40,-50,-50,-40,-40,-30],
+      [-30,-40,-40,-50,-50,-40,-40,-30],
+      [-30,-40,-40,-50,-50,-40,-40,-30],
+      [-20,-30,-30,-40,-40,-30,-30,-20],
+      [-10,-20,-20,-20,-20,-20,-20,-10],
+      [20, 20,  0,  0,  0,  0, 20, 20],
+      [20, 30, 10,  0,  0, 10, 30, 20]
+    ]
+  };
+  
+  var pieceValues = { 'pawn': 100, 'knight': 320, 'bishop': 330, 'rook': 500, 'queen': 900, 'king': 20000 };
+  
+  function getPSQT(piece, row, col) {
+    var table = PSQT[piece.type];
+    if (!table) return 0;
+    var r = piece.color === 'white' ? (7 - row) : row;
+    var c = piece.color === 'white' ? col : (7 - col);
+    return table[r] ? (table[r][c] || 0) : 0;
+  }
   
   function initBoard() {
     var newBoard = [];
@@ -1737,6 +1824,36 @@ function initChess() {
   
   function inBoard(row, col) {
     return row >= 0 && row < 8 && col >= 0 && col < 8;
+  }
+  
+  function updateCastlingRights(b, move) {
+    var piece = b[move.toRow][move.toCol];
+    if (piece.type === 'king') {
+      if (piece.color === 'white') castlingRights.whiteKing = false;
+      else castlingRights.blackKing = false;
+    }
+    if (move.fromRow === 7 && move.fromCol === 0) castlingRights.whiteRookQueen = false;
+    if (move.fromRow === 7 && move.fromCol === 7) castlingRights.whiteRookKing = false;
+    if (move.fromRow === 0 && move.fromCol === 0) castlingRights.blackRookQueen = false;
+    if (move.fromRow === 0 && move.fromCol === 7) castlingRights.blackRookKing = false;
+    if (move.toRow === 7 && move.toCol === 0) castlingRights.whiteRookQueen = false;
+    if (move.toRow === 7 && move.toCol === 7) castlingRights.whiteRookKing = false;
+    if (move.toRow === 0 && move.toCol === 0) castlingRights.blackRookQueen = false;
+    if (move.toRow === 0 && move.toCol === 7) castlingRights.blackRookKing = false;
+  }
+  
+  function isSquareAttacked(b, row, col, byColor) {
+    for (var r = 0; r < 8; r++) {
+      for (var c = 0; c < 8; c++) {
+        if (b[r][c] && b[r][c].color === byColor) {
+          var moves = getValidMoves(b, r, c, false);
+          for (var m of moves) {
+            if (m.toRow === row && m.toCol === col) return true;
+          }
+        }
+      }
+    }
+    return false;
   }
   
   function getValidMoves(b, row, col, checkKingSafety) {
@@ -1833,14 +1950,73 @@ function initChess() {
             moves.push({ fromRow: row, fromCol: col, toRow: kr, toCol: kc });
           }
         }
+        
+        var kingRow = color === 'white' ? 7 : 0;
+        if (row === kingRow && col === 4) {
+          var canKingSide = false;
+          if (color === 'white' && castlingRights.whiteKing && castlingRights.whiteRookKing) {
+            if (!b[kingRow][5] && !b[kingRow][6]) {
+              if (!isSquareAttacked(b, kingRow, 4, enemy) &&
+                  !isSquareAttacked(b, kingRow, 5, enemy) &&
+                  !isSquareAttacked(b, kingRow, 6, enemy)) {
+                canKingSide = true;
+              }
+            }
+          }
+          if (color === 'black' && castlingRights.blackKing && castlingRights.blackRookKing) {
+            if (!b[kingRow][5] && !b[kingRow][6]) {
+              if (!isSquareAttacked(b, kingRow, 4, enemy) &&
+                  !isSquareAttacked(b, kingRow, 5, enemy) &&
+                  !isSquareAttacked(b, kingRow, 6, enemy)) {
+                canKingSide = true;
+              }
+            }
+          }
+          if (canKingSide) {
+            moves.push({ fromRow: row, fromCol: col, toRow: kingRow, toCol: 6, castling: 'kingside' });
+          }
+          
+          var canQueenSide = false;
+          if (color === 'white' && castlingRights.whiteKing && castlingRights.whiteRookQueen) {
+            if (!b[kingRow][1] && !b[kingRow][2] && !b[kingRow][3]) {
+              if (!isSquareAttacked(b, kingRow, 4, enemy) &&
+                  !isSquareAttacked(b, kingRow, 3, enemy) &&
+                  !isSquareAttacked(b, kingRow, 2, enemy)) {
+                canQueenSide = true;
+              }
+            }
+          }
+          if (color === 'black' && castlingRights.blackKing && castlingRights.blackRookQueen) {
+            if (!b[kingRow][1] && !b[kingRow][2] && !b[kingRow][3]) {
+              if (!isSquareAttacked(b, kingRow, 4, enemy) &&
+                  !isSquareAttacked(b, kingRow, 3, enemy) &&
+                  !isSquareAttacked(b, kingRow, 2, enemy)) {
+                canQueenSide = true;
+              }
+            }
+          }
+          if (canQueenSide) {
+            moves.push({ fromRow: row, fromCol: col, toRow: kingRow, toCol: 2, castling: 'queenside' });
+          }
+        }
         break;
     }
     
     if (checkKingSafety !== false) {
       moves = moves.filter(function(move) {
         var testBoard = cloneBoard(b);
-        testBoard[move.toRow][move.toCol] = testBoard[move.fromRow][move.fromCol];
+        var pieceCopy = testBoard[move.fromRow][move.fromCol];
+        testBoard[move.toRow][move.toCol] = pieceCopy;
         testBoard[move.fromRow][move.fromCol] = null;
+        if (move.castling === 'kingside') {
+          var rookRow = move.toRow;
+          testBoard[rookRow][5] = testBoard[rookRow][7];
+          testBoard[rookRow][7] = null;
+        } else if (move.castling === 'queenside') {
+          var rookRow = move.toRow;
+          testBoard[rookRow][3] = testBoard[rookRow][0];
+          testBoard[rookRow][0] = null;
+        }
         return !isKingInCheck(testBoard, color);
       });
     }
@@ -1892,32 +2068,137 @@ function initChess() {
     return allMoves;
   }
   
+  function findKing(b, color) {
+    for (var r = 0; r < 8; r++) {
+      for (var c = 0; c < 8; c++) {
+        if (b[r][c] && b[r][c].type === 'king' && b[r][c].color === color) {
+          return { row: r, col: c };
+        }
+      }
+    }
+    return null;
+  }
+  
+  function countKingProtection(b, row, col, color) {
+    var count = 0;
+    for (var dr = -1; dr <= 1; dr++) {
+      for (var dc = -1; dc <= 1; dc++) {
+        var nr = row + dr, nc = col + dc;
+        if (inBoard(nr, nc) && b[nr][nc] && b[nr][nc].color === color) {
+          count++;
+        }
+      }
+    }
+    return count;
+  }
+  
+  function evaluateBoard(b, aiColor) {
+    var score = 0;
+    var centerWeight = 0.1;
+    var mobilityWeight = 0.05;
+    var kingSafetyWeight = 0.3;
+    
+    var aiMoves = getAllMoves(b, aiColor);
+    var playerMoves = getAllMoves(b, aiColor === 'white' ? 'black' : 'white');
+    var aiMobility = aiMoves.length;
+    var playerMobility = playerMoves.length;
+    
+    for (var r = 0; r < 8; r++) {
+      for (var c = 0; c < 8; c++) {
+        if (b[r][c]) {
+          var p = b[r][c];
+          var value = pieceValues[p.type] || 0;
+          var posBonus = getPSQT(p, r, c);
+          var centerDist = Math.abs(r - 3.5) + Math.abs(c - 3.5);
+          var centerBonus = (7 - centerDist) * centerWeight * 5;
+          
+          if (p.color === aiColor) {
+            score += value + posBonus + centerBonus;
+          } else {
+            score -= (value + posBonus + centerBonus);
+          }
+        }
+      }
+    }
+    
+    score += (aiMobility - playerMobility) * mobilityWeight * 10;
+    
+    var aiKingPos = findKing(b, aiColor);
+    var playerKingPos = findKing(b, aiColor === 'white' ? 'black' : 'white');
+    if (aiKingPos) {
+      var aiKingSafety = countKingProtection(b, aiKingPos.row, aiKingPos.col, aiColor);
+      score += aiKingSafety * kingSafetyWeight;
+    }
+    if (playerKingPos) {
+      var playerKingSafety = countKingProtection(b, playerKingPos.row, playerKingPos.col, aiColor === 'white' ? 'black' : 'white');
+      score -= playerKingSafety * kingSafetyWeight;
+    }
+    
+    return score;
+  }
+  
+  function isKingInCheckAfterMove(b, move, color) {
+    var testBoard = cloneBoard(b);
+    var piece = testBoard[move.fromRow][move.fromCol];
+    testBoard[move.toRow][move.toCol] = piece;
+    testBoard[move.fromRow][move.fromCol] = null;
+    if (move.castling === 'kingside') {
+      var rookRow = move.toRow;
+      testBoard[rookRow][5] = testBoard[rookRow][7];
+      testBoard[rookRow][7] = null;
+    } else if (move.castling === 'queenside') {
+      var rookRow = move.toRow;
+      testBoard[rookRow][3] = testBoard[rookRow][0];
+      testBoard[rookRow][0] = null;
+    }
+    return isKingInCheck(testBoard, color);
+  }
+  
+  function makeMoveInternal(b, move) {
+    var captured = b[move.toRow][move.toCol];
+    b[move.toRow][move.toCol] = b[move.fromRow][move.fromCol];
+    b[move.fromRow][move.fromCol] = null;
+    
+    if (move.castling === 'kingside') {
+      var rookRow = move.toRow;
+      b[rookRow][5] = b[rookRow][7];
+      b[rookRow][7] = null;
+    } else if (move.castling === 'queenside') {
+      var rookRow = move.toRow;
+      b[rookRow][3] = b[rookRow][0];
+      b[rookRow][0] = null;
+    }
+    return captured;
+  }
+  
   function minimax(b, depth, alpha, beta, isMaximizing, aiColor) {
     var playerColor = aiColor === 'white' ? 'black' : 'white';
     
     var aiMoves = getAllMoves(b, aiColor);
     var playerMoves = getAllMoves(b, playerColor);
     
-    if (aiMoves.length === 0 && isKingInCheck(b, aiColor)) return -10000 + depth;
-    if (playerMoves.length === 0 && isKingInCheck(b, playerColor)) return 10000 - depth;
+    if (aiMoves.length === 0 && isKingInCheck(b, aiColor)) return -100000 + depth;
+    if (playerMoves.length === 0 && isKingInCheck(b, playerColor)) return 100000 - depth;
     if (aiMoves.length === 0 || playerMoves.length === 0) return 0;
     if (depth === 0) return evaluateBoard(b, aiColor);
     
-    var moves = isMaximizing ? getAllMoves(b, aiColor) : getAllMoves(b, playerColor);
+    var moves = isMaximizing ? aiMoves : playerMoves;
     
     moves.sort(function(m1, m2) {
-      var m1Cap = b[m1.toRow][m1.toCol] ? 1 : 0;
-      var m2Cap = b[m2.toRow][m2.toCol] ? 1 : 0;
-      return m2Cap - m1Cap;
+      var m1Cap = b[m1.toRow][m1.toCol] ? (pieceValues[b[m1.toRow][m1.toCol].type] || 0) : 0;
+      var m2Cap = b[m2.toRow][m2.toCol] ? (pieceValues[b[m2.toRow][m2.toCol].type] || 0) : 0;
+      var m1Check = isKingInCheckAfterMove(b, m1, playerColor) ? 1000 : 0;
+      var m2Check = isKingInCheckAfterMove(b, m2, playerColor) ? 1000 : 0;
+      return (m2Cap + m2Check) - (m1Cap + m1Check);
     });
     
     if (isMaximizing) {
       var maxEval = -Infinity;
-      for (var i = 0; i < Math.min(moves.length, 20); i++) {
+      var maxMoves = 20;  // ← TAMBAHKAN BATASAN
+for (var i = 0; i < Math.min(moves.length, maxMoves); i++) {
         var move = moves[i];
         var testBoard = cloneBoard(b);
-        testBoard[move.toRow][move.toCol] = testBoard[move.fromRow][move.fromCol];
-        testBoard[move.fromRow][move.fromCol] = null;
+        var captured = makeMoveInternal(testBoard, move);
         
         var eval = minimax(testBoard, depth - 1, alpha, beta, false, aiColor);
         maxEval = Math.max(maxEval, eval);
@@ -1927,11 +2208,11 @@ function initChess() {
       return maxEval;
     } else {
       var minEval = Infinity;
-      for (var i = 0; i < Math.min(moves.length, 20); i++) {
+      var maxMoves = 20;  // ← TAMBAHKAN BATASAN
+for (var i = 0; i < Math.min(moves.length, maxMoves); i++) {
         var move = moves[i];
         var testBoard = cloneBoard(b);
-        testBoard[move.toRow][move.toCol] = testBoard[move.fromRow][move.fromCol];
-        testBoard[move.fromRow][move.fromCol] = null;
+        var captured = makeMoveInternal(testBoard, move);
         
         var eval = minimax(testBoard, depth - 1, alpha, beta, true, aiColor);
         minEval = Math.min(minEval, eval);
@@ -1942,52 +2223,62 @@ function initChess() {
     }
   }
   
-  function evaluateBoard(b, aiColor) {
-    var score = 0;
-    var pieceValues = { 'pawn': 10, 'knight': 30, 'bishop': 30, 'rook': 50, 'queen': 90, 'king': 900 };
-    
-    for (var r = 0; r < 8; r++) {
-      for (var c = 0; c < 8; c++) {
-        if (b[r][c]) {
-          var p = b[r][c];
-          var value = pieceValues[p.type] || 0;
-          if (p.type === 'pawn') {
-            if (p.color === 'white') value += (7 - r) * 0.5;
-            else value += r * 0.5;
-          }
-          if (p.color === aiColor) score += value;
-          else score -= value;
-        }
-      }
+function getBestMove(b, aiColor) {
+  var moves = getAllMoves(b, aiColor);
+  if (moves.length === 0) return null;
+  
+  var totalPieces = 0;
+  for (var r = 0; r < 8; r++) {
+    for (var c = 0; c < 8; c++) {
+      if (b[r][c]) totalPieces++;
     }
-    return score;
   }
   
-  function getBestMove(b, aiColor) {
-    var moves = getAllMoves(b, aiColor);
-    if (moves.length === 0) return null;
+  // Depth lebih rendah untuk kecepatan
+  var depth = 2;  // default lebih cepat
+  if (totalPieces <= 10) depth = 4;   // endgame
+  else if (totalPieces <= 16) depth = 3; // midgame
+  
+  // Batasi langkah yang dievaluasi
+  var maxMoves = 20;
+  
+  moves.sort(function(m1, m2) {
+    var m1Cap = b[m1.toRow][m1.toCol] ? (pieceValues[b[m1.toRow][m1.toCol].type] || 0) : 0;
+    var m2Cap = b[m2.toRow][m2.toCol] ? (pieceValues[b[m2.toRow][m2.toCol].type] || 0) : 0;
+    var m1Check = isKingInCheckAfterMove(b, m1, aiColor === 'white' ? 'black' : 'white') ? 1000 : 0;
+    var m2Check = isKingInCheckAfterMove(b, m2, aiColor === 'white' ? 'black' : 'white') ? 1000 : 0;
+    return (m2Cap + m2Check) - (m1Cap + m1Check);
+  });
+  
+  // Ambil top N moves
+  var topMoves = moves.slice(0, maxMoves);
+  
+  var bestMoves = [];
+  var bestScore = -Infinity;
+  var tolerance = 15;
+  
+  for (var i = 0; i < topMoves.length; i++) {
+    var move = topMoves[i];
+    var testBoard = cloneBoard(b);
+    var captured = makeMoveInternal(testBoard, move);
     
-    var bestMove = null;
-    var bestScore = -Infinity;
-    var depth = 3;
+    var score = minimax(testBoard, depth - 1, -Infinity, Infinity, false, aiColor);
     
-    for (var i = 0; i < Math.min(moves.length, 15); i++) {
-      var move = moves[i];
-      var testBoard = cloneBoard(b);
-      testBoard[move.toRow][move.toCol] = testBoard[move.fromRow][move.fromCol];
-      testBoard[move.fromRow][move.fromCol] = null;
-      
-      var score = minimax(testBoard, depth - 1, -Infinity, Infinity, false, aiColor);
-      
-      if (score > bestScore) {
-        bestScore = score;
-        bestMove = move;
-      }
+    if (score > bestScore + tolerance) {
+      bestScore = score;
+      bestMoves = [move];
+    } else if (Math.abs(score - bestScore) <= tolerance) {
+      bestMoves.push(move);
     }
-    
-    return bestMove;
   }
   
+  if (bestMoves.length > 0) {
+    var randomIndex = Math.floor(Math.random() * bestMoves.length);
+    return bestMoves[randomIndex];
+  }
+  return moves[0];
+}
+
   function makeMove(b, move, promoteTo) {
     var piece = b[move.fromRow][move.fromCol];
     var captured = b[move.toRow][move.toCol];
@@ -1998,6 +2289,38 @@ function initChess() {
       if (piece.color === 'black' && move.toRow === 7) isPromotion = true;
     }
     
+    if (move.castling === 'kingside') {
+      var rookRow = move.toRow;
+      b[rookRow][5] = b[rookRow][7];
+      b[rookRow][7] = null;
+      b[move.toRow][move.toCol] = piece;
+      b[move.fromRow][move.fromCol] = null;
+      if (piece.color === 'white') {
+        castlingRights.whiteKing = false;
+        castlingRights.whiteRookKing = false;
+      } else {
+        castlingRights.blackKing = false;
+        castlingRights.blackRookKing = false;
+      }
+      return { captured: captured, promotion: false, castling: true };
+    }
+    
+    if (move.castling === 'queenside') {
+      var rookRow = move.toRow;
+      b[rookRow][3] = b[rookRow][0];
+      b[rookRow][0] = null;
+      b[move.toRow][move.toCol] = piece;
+      b[move.fromRow][move.fromCol] = null;
+      if (piece.color === 'white') {
+        castlingRights.whiteKing = false;
+        castlingRights.whiteRookQueen = false;
+      } else {
+        castlingRights.blackKing = false;
+        castlingRights.blackRookQueen = false;
+      }
+      return { captured: captured, promotion: false, castling: true };
+    }
+    
     if (isPromotion && promoteTo) {
       b[move.toRow][move.toCol] = { type: promoteTo, color: piece.color };
     } else {
@@ -2005,7 +2328,9 @@ function initChess() {
     }
     b[move.fromRow][move.fromCol] = null;
     
-    return { captured: captured, promotion: isPromotion };
+    updateCastlingRights(b, move);
+    
+    return { captured: captured, promotion: isPromotion, castling: false };
   }
   
   function aiPromotionChoice(b, row, col, color) {
@@ -2174,8 +2499,9 @@ function initChess() {
       for (var m of moves) {
         var mRow = boardFlipped ? (7 - m.toRow) : m.toRow;
         if (mRow === row && m.toCol === col) {
-          var isPromo = false;
           var movingPiece = board[m.fromRow][m.fromCol];
+          
+          var isPromo = false;
           if (movingPiece.type === 'pawn') {
             if (movingPiece.color === 'white' && m.toRow === 0) isPromo = true;
             if (movingPiece.color === 'black' && m.toRow === 7) isPromo = true;
@@ -2292,7 +2618,6 @@ function initChess() {
     if (whiteMoves.length === 0) {
       gameOver = true;
       if (whiteCheck) {
-        // color with no moves under check = checkmated = loser
         if (playerColor === 'white') {
           updateStatus('💀 Anda Kalah! Checkmate!');
           showGameOverModal('lose', '💀 Anda Kalah', 'Bot (' + labelOf[botColor] + ') melakukan checkmate pada Anda.');
@@ -2339,7 +2664,7 @@ function initChess() {
         '<h3>' + title + '</h3>' +
         '<p>' + subtitle + '</p>' +
         '<div class="chess-gameover-actions">' +
-          '<button type="button" class="chess-btn" data-act="newgame"><i class="fas fa-plus"></i> main lagi</button>' +
+          '<button type="button" class="chess-btn" data-act="newgame"><i class="fas fa-plus"></i> baru</button>' +
           '<button type="button" class="chess-btn" data-act="close"><i class="fas fa-xmark"></i> tutup</button>' +
         '</div>' +
       '</div>';
@@ -2410,22 +2735,16 @@ function initChess() {
   
   function undoMove() {
     if (moveHistory.length === 0 || boardHistory.length === 0) {
-      updateStatus('⛔ Tidak ada langkah untuk di-undo');
+      updateStatus('⛔ Tidak ada langkah');
       return;
     }
     
     if (isAiThinking) {
-      updateStatus('⏳ Tunggu bot selesai berpikir');
+      updateStatus('⏳ Tunggu bot berpikir');
       return;
     }
     
-    // Tentukan warna yang membuat langkah terakhir dari histori (bukan dari
-    // currentPlayer, karena currentPlayer sudah berubah setelah langkah itu dibuat).
-    // Langkah ke-1 (index 0) selalu Putih, jadi indeks genap = Putih, ganjil = Hitam.
     var lastMoverColor = (moveHistory.length % 2 === 1) ? 'white' : 'black';
-    
-    // Kalau langkah terakhir dibuat bot (lawan), undo juga langkah kita sebelumnya
-    // sekaligus, supaya balik ke giliran kita dengan posisi kita juga ikut mundur.
     var steps = (lastMoverColor !== playerColor) ? 2 : 1;
     steps = Math.min(steps, moveHistory.length);
     
@@ -2440,16 +2759,24 @@ function initChess() {
       board = initBoard();
     }
     
+    castlingRights.whiteKing = true;
+    castlingRights.whiteRookKing = true;
+    castlingRights.whiteRookQueen = true;
+    castlingRights.blackKing = true;
+    castlingRights.blackRookKing = true;
+    castlingRights.blackRookQueen = true;
+    
+    for (var h = 0; h < moveHistory.length; h++) {
+      updateCastlingRights(board, moveHistory[h]);
+    }
+    
     selected = null;
-    // Putih selalu jalan duluan, jadi paritas sisa histori menentukan giliran berikutnya.
     currentPlayer = (moveHistory.length % 2 === 0) ? 'white' : 'black';
     gameOver = false;
     
     renderBoard();
     updateStatus('↩️ Mundur ' + steps + ' langkah');
     
-    // Kalau ternyata sekarang giliran bot (mis. bot yang jalan duluan sebagai putih
-    // lalu di-undo), biar bot langsung jalan lagi, bukan macet menunggu.
     if (currentPlayer !== playerColor) {
       setTimeout(aiTurn, 400);
     }
@@ -2468,8 +2795,16 @@ function initChess() {
     capturedWhite = [];
     capturedBlack = [];
     isAiThinking = false;
+    
+    castlingRights.whiteKing = true;
+    castlingRights.whiteRookKing = true;
+    castlingRights.whiteRookQueen = true;
+    castlingRights.blackKing = true;
+    castlingRights.blackRookKing = true;
+    castlingRights.blackRookQueen = true;
+    
     renderBoard();
-    updateStatus('🔄 Game baru dimulai!');
+    updateStatus('🛡️ Game baru dimulai!');
     
     if (currentPlayer !== playerColor) {
       setTimeout(aiTurn, 500);
@@ -2882,38 +3217,6 @@ if (app.type === 'chess') {
   document.addEventListener('dragstart', function(e){ e.preventDefault(); });
 
 })();
-
-// ===== DEBUG TOOLS =====
-(function() {
-  window.testPlayerWin = function() {
-    var boardEl = document.getElementById('chessBoard');
-    if (!boardEl) return console.log('❌ Board tidak ditemukan');
-    var evt = new CustomEvent('testGameOver', { detail: { type: 'win' } });
-    document.dispatchEvent(evt);
-    console.log('✅ Test: Player Win');
-  };
-  window.testBotWin = function() {
-    var boardEl = document.getElementById('chessBoard');
-    if (!boardEl) return console.log('❌ Board tidak ditemukan');
-    var evt = new CustomEvent('testGameOver', { detail: { type: 'lose' } });
-    document.dispatchEvent(evt);
-    console.log('✅ Test: Bot Win');
-  };
-  window.testStalemate = function() {
-    var boardEl = document.getElementById('chessBoard');
-    if (!boardEl) return console.log('❌ Board tidak ditemukan');
-    var evt = new CustomEvent('testGameOver', { detail: { type: 'draw' } });
-    document.dispatchEvent(evt);
-    console.log('✅ Test: Stalemate');
-  };
-  window.resetGameOver = function() {
-    var modal = document.querySelector('.chess-gameover-modal');
-    if (modal) modal.remove();
-    console.log('✅ Modal dihapus');
-  };
-  console.log('🔧 Debug tools: testPlayerWin(), testBotWin(), testStalemate(), resetGameOver()');
-})();
-
 </script>
 </body>
 </html>
