@@ -2883,6 +2883,67 @@ if (app.type === 'chess') {
 
 })();
 
+// === FORCE GAME OVER TEST ===
+
+// 1. Test Player Win (Checkmate)
+function testPlayerWin() {
+  var chess = document.querySelector('.chess-container');
+  if (!chess) return console.log('Catur belum dibuka');
+  // Buat posisi checkmate sederhana
+  var board = [
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,null,null,null,null],
+    [null,null,null,null,{type:'king',color:'white'},null,{type:'rook',color:'white'},null]
+  ];
+  // Trigger game over
+  if (window._chessState) {
+    window._chessState.board = board;
+    window._chessState.gameOver = true;
+    window._chessState.currentPlayer = 'black';
+    window._chessState.checkGameOver();
+  }
+}
+
+// 2. Test Bot Win
+function testBotWin() {
+  var chess = document.querySelector('.chess-container');
+  if (!chess) return console.log('Catur belum dibuka');
+  // Bot menang dengan checkmate
+  if (window._chessState) {
+    window._chessState.gameOver = true;
+    window._chessState.currentPlayer = 'white';
+    window._chessState.checkGameOver();
+  }
+}
+
+// 3. Test Stalemate (Seri)
+function testStalemate() {
+  var chess = document.querySelector('.chess-container');
+  if (!chess) return console.log('Catur belum dibuka');
+  if (window._chessState) {
+    window._chessState.gameOver = true;
+    window._chessState.currentPlayer = 'black';
+    window._chessState.checkGameOver();
+  }
+}
+
+// 4. Reset / Buka ulang modal
+function resetGameOver() {
+  var chess = document.querySelector('.chess-container');
+  if (!chess) return;
+  var modal = chess.querySelector('.chess-gameover-modal');
+  if (modal) modal.remove();
+  if (window._chessState) {
+    window._chessState.gameOver = false;
+    window._chessState.renderBoard();
+  }
+}
+
 </script>
 </body>
 </html>
