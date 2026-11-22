@@ -56,8 +56,18 @@
   }
   #boot.hide{ opacity:0; pointer-events:none; }
   .boot-lines{ font-size:13px; line-height:1.9; width:min(88vw,360px); }
-  .boot-lines div{ opacity:0; transform:translateX(-6px); animation:bootLine .3s ease forwards; }
-  @keyframes bootLine{ to{ opacity:1; transform:translateX(0); } }
+  .boot-lines > div{ opacity:0; animation:bootLine .01s steps(1) forwards; white-space:nowrap; }
+  .boot-head{ color:#7FA88C; margin-bottom:6px; }
+  .boot-row{ display:flex; gap:6px; }
+  .boot-row .lbl{ flex:none; }
+  .boot-row .dots{ flex:1; overflow:hidden; color:#4E6B58; }
+  .boot-row .dots::before{ content:'..............................................'; }
+  .boot-row .val{ flex:none; opacity:0; animation:bootLine .01s steps(1) forwards; }
+  .boot-row .val.warn{ color:var(--yellow); }
+  .boot-end{ margin-top:8px; }
+  .boot-end .cur{ display:inline-block; width:8px; height:14px; background:#B9E8C9; vertical-align:-2px; margin-left:4px; animation:blink .8s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  @keyframes bootLine{ to{ opacity:1; } }
 
   /* ---------- DESKTOP ---------- */
   .desktop{
@@ -133,7 +143,7 @@
     line-height:1.3;
     text-shadow:1px 1px 0 rgba(0,0,0,.55);
     max-width:84px;
-    word-break:break-word;
+    overflow-wrap:break-word;
   }
 
   /* ---------- STICKY NOTE ---------- */
@@ -960,7 +970,7 @@
 <script>
 (function(){
 
-/* ================= DATA APPS (URUTAN 4x2) ================= */
+/* ================= DATA APPS (2 kolom: 4 + 3) ================= */
 var apps = [
   {
     id:'ayam',
@@ -970,16 +980,8 @@ var apps = [
     type:'link',
     url:'https://Zaxhub.pages.dev',
     linkLabel:'buka',
-    blurb:'Bacaannya jangan dibuka. Yaudah jangan. Tapi biasanya makin dilarang malah makin kepo. Kalo abis buka terus nyesel, itu di luar tanggung jawab admin.'
+    blurb:'Udah dibilang jangan dibuka, eh malah diklik. Yaudah, lanjut, tapi kalau nyesel jangan ngadu, ya.'
   },
-{
-  id:'chess',
-  title:'Catur Modern',
-  icon:'<i class="fas fa-chess"></i>',
-  accent:'purple',
-  type:'chess',
-  blurb:''
-},
   {
     id:'sendal',
     title:'jangan_dilihat.exe',
@@ -988,7 +990,25 @@ var apps = [
     type:'link',
     url:'https://secretbyZax.pages.dev',
     linkLabel:'buka',
-    blurb:'btw ini gak buat semua orang. Kalo bisa masuk ya selamat. Kalo gabisa masuk... ya cari tau caranya.'
+    blurb:'Ini bukan buat semua orang. Kalau bisa masuk, selamat. Kalau nggak bisa, ya cari sendiri caranya.'
+  },
+  {
+    id:'otak',
+    title:'quiz_online.exe',
+    icon:'😱',
+    accent:'orange',
+    type:'link',
+    url:'https://zaxquiz.pages.dev',
+    linkLabel:'buka',
+    blurb:'Dibikin pas gabut, dimainin juga pas gabut. Pas buat nemenin nunggu balesan chat yang gak dateng.'
+  },
+  {
+    id:'chess',
+    title:'Catur Modern',
+    icon:'<i class="fas fa-chess"></i>',
+    accent:'purple',
+    type:'chess',
+    blurb:''
   },
   {
     id:'music',
@@ -998,15 +1018,13 @@ var apps = [
     type:'music',
     blurb:''
   },
-    {
-    id:'otak',
-    title:'quiz_online.exe',
-    icon:'😱',
-    accent:'orange',
-    type:'link',
-    url:'https://zaxquiz.pages.dev',
-    linkLabel:'buka',
-    blurb:'Dibuat pas gabut. Dimainin pas gabut. Cocok buat orang yg niat buka ini cuma buat killing time.'
+  {
+    id:'about',
+    title:'Tentang PC',
+    icon:'<i class="fas fa-desktop"></i>',
+    accent:'yellow',
+    type:'about',
+    blurb:''
   },
   {
     id:'trash',
@@ -1014,24 +1032,6 @@ var apps = [
     icon:'<i class="fas fa-trash-alt"></i>',
     accent:'red',
     type:'trash',
-    blurb:''
-  },
-{
-    id:'planet',
-    title:'tentang_aku.exe',
-    icon:'🗿',
-    accent:'green',
-    type:'link',
-    url:'https://itszax.pages.dev',
-    linkLabel:'buka',
-    blurb:'Sebenernya ini cuma kumpulan hal random. Tapi biar keren kita sebut aja "personal archive".'
-  },
-  {
-    id:'about',
-    title:'Tentang PC',
-    icon:'<i class="fas fa-desktop"></i>',
-    accent:'yellow',
-    type:'about',
     blurb:''
   }
 ];
@@ -1119,23 +1119,39 @@ var apps = [
 
   /* ================= BOOT ================= */
   var bootLinesEl = document.getElementById('bootLines');
-  var bootTexts = [
-    'Mengecek sistem...',
-    'Memuat konfigurasi...',
-    'Menghubungkan jaringan...',
-    'Siap digunakan.'
+  var bootRows = [
+    ['memori 128 MB', 'ok', ''],
+    ['hdd 8 GB', '91% penuh', 'warn'],
+    ['kipas cpu', 'bunyi, aman', ''],
+    ['jaringan', 'numpang tetangga', 'warn']
   ];
-  bootTexts.forEach(function(t, i){
+  var bootStep = 0.32;
+  var head = document.createElement('div');
+  head.className = 'boot-head';
+  head.textContent = 'ZaxOS 1.0 · Pentium III 800MHz';
+  bootLinesEl.appendChild(head);
+  bootRows.forEach(function(r, i){
     var d = document.createElement('div');
-    d.textContent = '> ' + t;
-    d.style.animationDelay = (i * 0.22) + 's';
+    d.className = 'boot-row';
+    var t = (i + 1) * bootStep;
+    d.style.animationDelay = t + 's';
+    d.innerHTML = '<span class="lbl"></span><span class="dots"></span><span class="val ' + r[2] + '"></span>';
+    d.querySelector('.lbl').textContent = r[0];
+    var v = d.querySelector('.val');
+    v.textContent = r[1];
+    v.style.animationDelay = (t + 0.2) + 's';
     bootLinesEl.appendChild(d);
   });
+  var endLine = document.createElement('div');
+  endLine.className = 'boot-end';
+  endLine.style.animationDelay = ((bootRows.length + 1) * bootStep + 0.1) + 's';
+  endLine.innerHTML = 'masuk sebagai tamu<span class="cur"></span>';
+  bootLinesEl.appendChild(endLine);
   window.setTimeout(function(){
     document.getElementById('boot').classList.add('hide');
     iconsLayer.classList.add('ready');
     window.setTimeout(function(){ document.getElementById('boot').style.display='none'; }, 500);
-  }, bootTexts.length * 220 + 550);
+  }, ((bootRows.length + 1) * bootStep + 0.1) * 1000 + 700);
 
   /* ================= CLOCK & STATUS ================= */
   var statusList = ['siaga', 'terhubung', 'sibuk', 'istirahat', 'fokus', 'mikir keras', 'panik dikit'];
@@ -1187,6 +1203,17 @@ var apps = [
     document.querySelectorAll('.icon.selected').forEach(function(el){ el.classList.remove('selected'); });
   }
 
+  function gridPos(index){
+    var perCol = 4;
+    var mobile = window.innerWidth <= 600;
+    var colW = mobile ? 88 : 104;
+    var rowH = Math.max(86, Math.min(104, Math.floor((iconsLayer.clientHeight - 8) / perCol)));
+    return {
+      left: 4 + Math.floor(index / perCol) * colW,
+      top: 4 + (index % perCol) * rowH
+    };
+  }
+
   function buildIcon(app, index){
     var el = document.createElement('div');
     el.className = 'icon';
@@ -1194,13 +1221,12 @@ var apps = [
     el.dataset.index = index;
     el.innerHTML =
       '<div class="icon-tile pixel">' + app.icon + '</div>' +
-      '<div class="icon-label">' + app.title + '</div>';
+      '<div class="icon-label">' + app.title.replace(/_/g, '_<wbr>') + '</div>';
     iconsLayer.appendChild(el);
 
-    var col = index % 2;
-    var row = Math.floor(index / 2);
-    var leftPos = 16 + (col * 120);
-    var topPos = 16 + (row * 120);
+    var pos = gridPos(index);
+    var leftPos = pos.left;
+    var topPos = pos.top;
 
     if (iconPositions[app.id] && iconPositions[app.id].left !== undefined) {
       el.style.left = iconPositions[app.id].left + 'px';
@@ -1247,8 +1273,9 @@ var apps = [
       if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
         moved = true;
         el.classList.add('dragging');
-        el.style.left = (e.clientX - offsetX) + 'px';
-        el.style.top = (e.clientY - offsetY) + 'px';
+        var layerRect = iconsLayer.getBoundingClientRect();
+        el.style.left = (e.clientX - offsetX - layerRect.left) + 'px';
+        el.style.top = (e.clientY - offsetY - layerRect.top) + 'px';
         el.style.zIndex = 999;
         el.style.pointerEvents = 'none';
       }
@@ -1257,11 +1284,11 @@ var apps = [
     el.addEventListener('pointerup', function(e){
       if (isDragging) {
         if (moved) {
-          var desktopRect = desktop.getBoundingClientRect();
+          var layerRect = iconsLayer.getBoundingClientRect();
           var elRect = el.getBoundingClientRect();
           
-          var newLeft = elRect.left - desktopRect.left;
-          var newTop = elRect.top - desktopRect.top;
+          var newLeft = elRect.left - layerRect.left;
+          var newTop = elRect.top - layerRect.top;
           
           el.style.left = newLeft + 'px';
           el.style.top = newTop + 'px';
@@ -3152,10 +3179,9 @@ if (app.type === 'chess') {
     playClickSFX('click');
     apps.forEach(function(app, index){
       var el = app.el;
-      var col = index % 2;
-      var row = Math.floor(index / 2);
-      var leftPos = 16 + (col * 120);
-      var topPos = 16 + (row * 120);
+      var pos = gridPos(index);
+      var leftPos = pos.left;
+      var topPos = pos.top;
       
       el.style.left = leftPos + 'px';
       el.style.top = topPos + 'px';
